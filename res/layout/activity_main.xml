@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dss_game.MainActivity"
+    tools:ignore="MergeRootFrame"
+	android:screenOrientation="landscape" >
+    
+    
+	<com.example.dss_game.Engine
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/gamewindow"
+        tools:context="com.example.dss_game.Engine"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+		
+    
+</LinearLayout>
+ 
