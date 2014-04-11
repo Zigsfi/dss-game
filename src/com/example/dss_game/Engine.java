@@ -20,10 +20,12 @@ import android.view.SurfaceView;
 
 public class Engine extends SurfaceView implements Callback {
 	int x =0, y=0;
-	Bitmap room, monster, sword, shield;
+	Bitmap room, sword, shield;
+	Monster monster;
 	private String directory;
 	Paint paint;
 	SurfaceHolder surfaceholder;
+	Player player;
 	public Engine(Context context, AttributeSet attrs) {
 		super(context);
 		getHolder().addCallback(this);
@@ -33,15 +35,15 @@ public class Engine extends SurfaceView implements Callback {
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
-	} 
+	}
 
 	public void init(String directory) {
 		this.directory = directory;
-		room = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.room), 1280, 720, false);
-		monster = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 240, 320, false);
-		shield = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(getResources(), R.drawable.shield), 200, 500, false);
-		sword = BitmapFactory.decodeResource(getResources(), R.drawable.sword);
+		room = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(getResources(), R.drawable.room), 1280, 720, false);
+		monster = new Demon();
+		monster.init(this);
+		player = new Player(this);
 		System.out.println("Did something...");
 		surfaceholder = this.getHolder();
 		new Thread() {
@@ -59,6 +61,7 @@ public class Engine extends SurfaceView implements Callback {
 	}
 	public void update() {
 		//	invalidate();
+		monster.update();
 		Canvas c = surfaceholder.lockCanvas();
 		if (c != null) {
 			paint(c);
@@ -86,9 +89,9 @@ public class Engine extends SurfaceView implements Callback {
 		//canvas.drawARGB(255, y % 255, x % 255, 255);
 		try {
 			canvas.drawBitmap(room, 0, 0, paint);
-			canvas.drawBitmap(monster, 500, 250, paint);
-			canvas.drawBitmap(sword, 750, 300, paint);
-			canvas.drawBitmap(shield, 200, 340, paint);
+			monster.draw(canvas);
+			player.draw(canvas);
+
 		} catch (Exception e) {
 			//	e.printStackTrace();
 		}
