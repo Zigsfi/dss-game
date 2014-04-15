@@ -3,12 +3,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dss_game.MainActivity"
+    tools:context="com.dss_game.MainActivity"
     tools:ignore="MergeRootFrame"
 	android:screenOrientation="landscape" >
     
     
-	<com.example.dss_game.Engine
+	<com.dss_game.Engine
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/gamewindow"
