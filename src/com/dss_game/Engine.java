@@ -15,10 +15,12 @@ import android.graphics.Paint;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 public class Engine extends SurfaceView implements Callback {
 	int x = 0, y = 0;
@@ -29,6 +31,7 @@ public class Engine extends SurfaceView implements Callback {
 	Paint paint;
 	SurfaceHolder surfaceholder;
 	Player player;
+	static Display display;
 	public Engine(Context context, AttributeSet attrs) {
 		super(context);
 		getHolder().addCallback(this);
@@ -36,19 +39,21 @@ public class Engine extends SurfaceView implements Callback {
 		setWillNotDraw(false);
 		paint = new Paint();
 		paint.setTextSize(50);
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
+		display = wm.getDefaultDisplay();
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
 	}
 
 	public void init(String directory) {
-		this.directory = directory;
+
+
 		room = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(getResources(), R.drawable.room), 1920, 1200, false);
+				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = new Demon();
 		monster.init(this);
 		player = new Player(this);
-		System.out.println("Did something...");
 		surfaceholder = this.getHolder();
 		new Thread() {
 			public void run() {
