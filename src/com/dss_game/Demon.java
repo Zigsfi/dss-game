@@ -24,7 +24,7 @@ public class Demon implements Monster {
 
 	@Override
 	public void draw(Canvas c) {
-		c.drawBitmap(image, x, y, engine.paint);
+		c.drawBitmap(image, (int) (Engine.scaleX * x), (int)(Engine.scaleY * y), engine.paint);
 	}
 
 	@Override
