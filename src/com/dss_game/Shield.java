@@ -13,7 +13,7 @@ public class Shield implements Weapon {
 
 	public Shield (Engine engine) {
 		image = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), 400, 900, false);
+				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), (int) (400 * Engine.scaleX),(int)(900 * Engine.scaleY), false);
 
 	}
 	@Override

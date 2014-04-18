@@ -10,7 +10,9 @@ public class Sword implements Weapon {
 	Bitmap weapon;
 	int readiness;
 	public Sword(Engine e)  {
-		weapon = BitmapFactory.decodeResource(e.getResources(), R.drawable.sword);
+		weapon = Bitmap.createScaledBitmap( 
+				BitmapFactory.decodeResource(e.getResources(), R.drawable.sword),
+				(int)(300 * Engine.scaleX),(int)( 400 * Engine.scaleY), false);
 
 	}
 	@Override

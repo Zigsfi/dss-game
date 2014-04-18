@@ -32,6 +32,8 @@ public class Engine extends SurfaceView implements Callback {
 	SurfaceHolder surfaceholder;
 	Player player;
 	static Display display;
+	static float scaleX;
+	static float scaleY;
 	public Engine(Context context, AttributeSet attrs) {
 		super(context);
 		getHolder().addCallback(this);
@@ -42,6 +44,8 @@ public class Engine extends SurfaceView implements Callback {
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
 		display = wm.getDefaultDisplay();
+		scaleX = 1920.0f / (float)display.getWidth();
+		scaleY = 1200.0f / (float)display.getWidth();
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
 	}

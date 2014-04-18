@@ -19,7 +19,7 @@ public class Demon implements Monster {
 	public void init(Engine e) {
 		this.engine = e;
 		image = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster), 240, 320, false);
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
 	}
 
 	@Override
