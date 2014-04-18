@@ -19,15 +19,17 @@ public class Player {
 	public void draw (Canvas c) {
 		c.drawBitmap(right.image(), (int)(1050 * Engine.scaleX), (int)((800+right.readiness()) * Engine.scaleY), engine.paint);
 		c.drawBitmap(left.image(), (int)(400 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
-		c.drawBitmap(left.menu(engine.paint), (int)(200 * Engine.scaleX), (int)((340+left.readiness()) * Engine.scaleY), engine.paint);
+		int x, y;
+		x = (int)(200 * Engine.scaleX);
+		y = (int)((900+left.readiness()) * Engine.scaleY);
+		c.drawBitmap(left.menu(x, y, engine.paint), x, y, engine.paint);
 	}
 
 	public void handleInput(int x, int y) {
 		System.out.println("Handling");
-		if (x < 600) {
+		if (x < Engine.display.getWidth() / 2) {
 			left. tapped(x, y);
-		}
-		if (x > 600) {
+		} else {
 			right.tapped(x, y);
 		}
 

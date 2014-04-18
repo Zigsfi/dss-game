@@ -12,7 +12,7 @@ public class Sword implements Weapon {
 	public Sword(Engine e)  {
 		weapon = Bitmap.createScaledBitmap( 
 				BitmapFactory.decodeResource(e.getResources(), R.drawable.sword),
-				(int)(300 * Engine.scaleX),(int)( 400 * Engine.scaleY), false);
+				(int)(400 * Engine.scaleX),(int)( 800 * Engine.scaleY), false);
 
 	}
 	@Override
@@ -29,11 +29,11 @@ public class Sword implements Weapon {
 
 	@Override
 	public boolean tapped(int x, int y) {
-		System.out.println("Sword");
+		System.out.println("Sword ");
 		return false;
 	}
 	@Override
-	public Bitmap menu(Paint p) {
+	public Bitmap menu(int x, int y, Paint p) {
 		// TODO Auto-generated method stub
 		return null;
 	}
