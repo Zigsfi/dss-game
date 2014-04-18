@@ -13,7 +13,7 @@ public class Shield implements Weapon {
 
 	public Shield (Engine engine) {
 		image = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), 200, 500, false);
+				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), 400, 900, false);
 
 	}
 	@Override
@@ -23,7 +23,7 @@ public class Shield implements Weapon {
 
 	@Override
 	public int readiness() {
-		return (readiness > 0) ? readiness-- : readiness;
+		return (readiness >= 0) ? readiness-- : readiness;
 	}
 	@Override
 	public Bitmap menu(Paint p) {
@@ -35,9 +35,12 @@ public class Shield implements Weapon {
 	@Override
 	public boolean tapped(int x, int y) {
 		System.out.println("Checking");
-		readiness = 100;
+		if (readiness <= 0) {
+			readiness = 100;
 
-		return true;
+			return true;
+		}
+		return false;
 	}
 
 }

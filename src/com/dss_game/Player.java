@@ -17,8 +17,8 @@ public class Player {
 	}
 
 	public void draw (Canvas c) {
-		c.drawBitmap(right.image(), 750, 300+right.readiness(), engine.paint);
-		c.drawBitmap(left.image(), 200, 340+left.readiness(), engine.paint);
+		c.drawBitmap(right.image(), 1050, 800+right.readiness(), engine.paint);
+		c.drawBitmap(left.image(), 400, 600+left.readiness(), engine.paint);
 		c.drawBitmap(left.menu(engine.paint), 200, 340+left.readiness(), engine.paint);
 	}
 

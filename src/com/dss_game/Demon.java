@@ -11,8 +11,8 @@ public class Demon implements Monster {
 	Bitmap image;
 	int x, y;
 	public Demon() {
-		x = 500;
-		y = 200;
+		x = 900;
+		y = 500;
 	}
 
 	@Override
