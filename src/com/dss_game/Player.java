@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-public class Player implements Stats{
+public class Player implements Stats {
 	Engine engine;
 	Weapon left, right;
 	int Hp;

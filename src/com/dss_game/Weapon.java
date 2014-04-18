@@ -6,6 +6,6 @@ import android.graphics.Paint;
 public interface Weapon {
 	public Bitmap image();
 	public int readiness();
-	public Bitmap menu(Paint p);
+	public Bitmap menu(int x, int y, Paint p);
 	public boolean tapped(int x, int y);
 }
