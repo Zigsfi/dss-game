@@ -6,18 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-public class Demon implements Monster, Stats {
+public class Troll implements Monster, Stats {
 	Engine engine;
 	Bitmap image;
 	int x, y;
-	int Hp, Mp, Str, Def, Dex, IQ;
-	public Demon() {
+	public Troll() {
 		x = 900;
 		y = 500;
-		Hp = 10;
-		Mp = 10;
-		Str = 3;
-		Def = 3;
 	}
 
 	@Override
@@ -52,7 +47,6 @@ public class Demon implements Monster, Stats {
 	@Override
 	public void changeHp(int addHp) {
 		// TODO Auto-generated method stub
-		Hp = Hp + addHp;
 		
 	}
 
@@ -148,8 +142,7 @@ public class Demon implements Monster, Stats {
 
 	@Override
 	public void take_dmg(int dmg) {
-		changeHp(dmg);
-		System.out.println( String.format("Deamon HP: %d", Hp));
+		changeHp( dmg);
 		
 	}
 

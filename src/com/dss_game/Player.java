@@ -118,6 +118,7 @@ public class Player implements Stats {
 	@Override
 	public void changeDef(int addDef) {
 		Def = Def + addDef;
+		System.out.println( String.format("Player Def: %d", Def));
 		
 	}
 
