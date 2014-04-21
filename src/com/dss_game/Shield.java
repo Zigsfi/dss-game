@@ -24,7 +24,8 @@ public class Shield implements Weapon {
 		engine = e;
 		image = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), (int) (400 * Engine.scaleX),(int)(900 * Engine.scaleY), false);
-		menu = new GameMenu();
+		
+        menu = new GameMenu();
 		menu.addOption("Raise", new Raise());
 		menu.addOption("Bash", new Bash());
 	}
@@ -43,7 +44,6 @@ public class Shield implements Weapon {
 		menuY = y;
 		return menu.render(p);
 	}
-	
 	
 	@Override
 	public boolean tapped(int x, int y) {
@@ -65,7 +65,7 @@ public class Shield implements Weapon {
 
 		@Override
 		public void execute() {
-			// TODO Auto-generated method stub
+			// TODO polish up and see if this how we want to do this
 			engine.player.changeDef( defence);
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
@@ -83,7 +83,7 @@ public class Shield implements Weapon {
 
 		@Override
 		public void execute() {
-			// TODO Auto-generated method stub
+			// TODO select an enemy from monster array in engine
 			engine.monster.take_dmg( (-1 * bash_damage));
 			
 		}}
