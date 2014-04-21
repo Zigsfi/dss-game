@@ -2,6 +2,8 @@ package com.dss_game;
 
 import com.example.dss_game.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,14 +13,20 @@ public class Shield implements Weapon {
 	Bitmap image;
 	int readiness =0;
 	GameMenu menu;
+	//TODO we need to give this shield stats like defence.
+	private int defence = 10;
+	private int bash_damage = 5;
+	
 	private int menuX;
 	private int menuY;
-	public Shield (Engine engine) {
+	Engine engine;
+	public Shield (Engine e) {
+		engine = e;
 		image = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), (int) (400 * Engine.scaleX),(int)(900 * Engine.scaleY), false);
 		menu = new GameMenu();
-		menu.addOption("Fucker", new Test());
-		menu.addOption("Bitch", null);
+		menu.addOption("Raise", new Raise());
+		menu.addOption("Bash", new Bash());
 	}
 	@Override
 	public Bitmap image() {
@@ -52,5 +60,32 @@ public class Shield implements Weapon {
 		}
 		return false;
 	}
+	
+	private class Raise implements Action {
+
+		@Override
+		public void execute() {
+			// TODO Auto-generated method stub
+			engine.player.changeDef( defence);
+			Timer def_T = new Timer();
+			def_T.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					engine.player.changeDef((-1 * defence));
+					return;
+				}
+			}, 1000*3);
+			
+			
+		}}
+	
+	private class Bash implements Action {
+
+		@Override
+		public void execute() {
+			// TODO Auto-generated method stub
+			engine.monster.take_dmg( (-1 * bash_damage));
+			
+		}}
 
 }
