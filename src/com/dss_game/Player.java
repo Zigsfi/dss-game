@@ -31,21 +31,24 @@ public class Player implements Stats {
 	}
 
 	public void draw (Canvas c) {
-		c.drawBitmap(right.image(), (int)(1050 * Engine.scaleX), (int)((800+right.readiness()) * Engine.scaleY), engine.paint);
+		c.drawBitmap(right.image(), (int)(1280 * Engine.scaleX), (int)((800+right.readiness()) * Engine.scaleY), engine.paint);
 		c.drawBitmap(left.image(), (int)(400 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
-		int x, y, rx, ry;
-		x = (int)(200 * Engine.scaleX);
-		y = (int)((900+left.readiness()) * Engine.scaleY);
-		c.drawBitmap(left.menu(x, y, engine.paint), x, y, engine.paint);
-		rx = (int)(1050 * Engine.scaleX);
-		ry = (int)((900+right.readiness()) * Engine.scaleY);
-		c.drawBitmap(right.menu(rx, ry, engine.paint), rx, ry, engine.paint);
+		int left_x, left_y, right_x, right_y;
+		left_x = (int)(200 * Engine.scaleX);
+		left_y = (int)((900+left.readiness()) * Engine.scaleY);
+		c.drawBitmap(left.menu(left_x, left_y, engine.paint), left_x, left_y, engine.paint);
+		right_x = (int)(1280 * Engine.scaleX);
+		right_y = (int)((900+right.readiness()) * Engine.scaleY);
+		c.drawBitmap(right.menu(right_x, right_y, engine.paint), right_x, right_y, engine.paint);
 	}
 
 	public void handleInput(int x, int y) {
 		System.out.println("Handling");
-		if (x < Engine.display.getWidth() / 2) {
-			left. tapped(x, y);
+		int trisect_screen = Engine.display.getWidth() / 3;
+		if (x < trisect_screen) {
+			left.tapped(x, y);
+		} else if(x < (2*trisect_screen)) {
+			
 		} else {
 			right.tapped(x, y);
 		}
