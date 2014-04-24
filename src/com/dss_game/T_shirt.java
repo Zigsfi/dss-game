@@ -1,50 +1,42 @@
 package com.dss_game;
 
-import com.example.dss_game.R;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+
+
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Shield implements Weapon {
-	Bitmap image;
-	int readiness =0;
+public class T_shirt implements Armor{
+	int readiness=0;
 	GameMenu menu;
-	//TODO we need to give this shield stats like defence.
-	private int defence = 10;
-	private int bash_damage = 5;
+	//TODO give this T-shirt states
+	int defence = 5;
 	
 	private int menuX;
 	private int menuY;
-	Engine engine;
-	public Shield (Engine e) {
+	Engine engine;	
+	
+	public T_shirt (Engine e){
 		engine = e;
-		image = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(engine.getResources(), R.drawable.shield), (int) (400 * Engine.scaleX),(int)(900 * Engine.scaleY), false);
-		
-        menu = new GameMenu();
-		menu.addOption("Raise", new Raise());
-		menu.addOption("Bash", new Bash());
-	}
-	@Override
-	public Bitmap image() {
-		return image;
+		menu = new GameMenu();
+		menu.addOption("Hulk Rip", new HulkRip());
+		//menu.addOption("Stab", new Stab());
 	}
 
 	@Override
 	public int readiness() {
 		return (readiness >= 0) ? readiness-- : readiness;
 	}
+
 	@Override
 	public Bitmap menu(int x, int y, Paint p) {
 		menuX = x;
 		menuY = y;
-		return menu.render(300, 400, p);
+		return menu.render(500, 400, p);
 	}
-	
+
 	@Override
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
@@ -61,8 +53,7 @@ public class Shield implements Weapon {
 		return false;
 	}
 	
-	private class Raise implements Action {
-
+	private class HulkRip implements Action {
 		@Override
 		public void execute() {
 			// TODO polish up and see if this how we want to do this
@@ -72,20 +63,13 @@ public class Shield implements Weapon {
 				@Override
 				public void run() {
 					engine.player.changeDef((-1 * defence));
+					
 					return;
 				}
 			}, 1000*3);
 			
 			
-		}}
-	
-	private class Bash implements Action {
-
-		@Override
-		public void execute() {
-			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (-1 * bash_damage));
-			
-		}}
+		}
+	}
 
 }

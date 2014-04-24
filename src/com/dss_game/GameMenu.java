@@ -17,9 +17,9 @@ public class GameMenu {
 		menu.add(m);
 	}
 	
-	public Bitmap render(Paint p) {
+	public Bitmap render(int sizeX, int sizeY, Paint p) {
 	//	Paint p = new Paint();
-		Bitmap b = Bitmap.createBitmap((int)(300 * Engine.scaleX), (int)(400 * Engine.scaleY), Bitmap.Config.ARGB_8888);
+		Bitmap b = Bitmap.createBitmap((int)(sizeX * Engine.scaleX), (int)(sizeY * Engine.scaleY), Bitmap.Config.ARGB_8888);
 		Canvas c = new Canvas(b);
 		Paint transparent = new Paint();
 		transparent.setARGB(128, 128, 128, 128);

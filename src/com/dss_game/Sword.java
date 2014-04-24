@@ -42,7 +42,7 @@ public class Sword implements Weapon {
 	public Bitmap menu(int x, int y, Paint p) {
 		menuX = x;
 		menuY = y;
-		return menu.render(p);
+		return menu.render(300, 400, p);
 	}
     
 	@Override
