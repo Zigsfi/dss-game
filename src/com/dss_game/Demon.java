@@ -95,7 +95,7 @@ public class Demon implements Monster, Stats {
 	@Override
 	public int getDef() {
 		// TODO Auto-generated method stub
-		return 0;
+		return Def;
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class Demon implements Monster, Stats {
 
 	@Override
 	public void take_dmg(int dmg) {
-		changeHp(dmg);
+		changeHp((dmg+Def));
 		System.out.println( String.format("Deamon HP: %d", Hp));
 		
 	}

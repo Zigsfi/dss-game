@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 public class Player implements Stats {
 	Engine engine;
 	Weapon left, right;
+	Armor middle;
 	int Hp;
 	int Mp;
 	int Str;
@@ -18,6 +19,7 @@ public class Player implements Stats {
 		engine = e;
 		right = new Sword(e);
 		left = new Shield(e);
+		middle = new T_shirt(e);
 		Hp = 100;
 		Mp = 100;
 		Str = 10; /* + swordStats*/
@@ -32,14 +34,19 @@ public class Player implements Stats {
 
 	public void draw (Canvas c) {
 		c.drawBitmap(right.image(), (int)(1280 * Engine.scaleX), (int)((800+right.readiness()) * Engine.scaleY), engine.paint);
-		c.drawBitmap(left.image(), (int)(400 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
-		int left_x, left_y, right_x, right_y;
+		c.drawBitmap(left.image(), (int)(300 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
+		int left_x, left_y, right_x, right_y, mid_x, mid_y;
 		left_x = (int)(200 * Engine.scaleX);
 		left_y = (int)((900+left.readiness()) * Engine.scaleY);
 		c.drawBitmap(left.menu(left_x, left_y, engine.paint), left_x, left_y, engine.paint);
+		mid_x = (int)(700 * Engine.scaleX);
+		mid_y = (int)((900+middle.readiness()) * Engine.scaleY);
+		c.drawBitmap(middle.menu(mid_x, mid_y,  engine.paint), mid_x, mid_y, engine.paint);
 		right_x = (int)(1280 * Engine.scaleX);
 		right_y = (int)((900+right.readiness()) * Engine.scaleY);
 		c.drawBitmap(right.menu(right_x, right_y, engine.paint), right_x, right_y, engine.paint);
+		
+		//TODO health and magic status in top of screen
 	}
 
 	public void handleInput(int x, int y) {
@@ -48,7 +55,7 @@ public class Player implements Stats {
 		if (x < trisect_screen) {
 			left.tapped(x, y);
 		} else if(x < (2*trisect_screen)) {
-			
+			middle.tapped(x, y);			
 		} else {
 			right.tapped(x, y);
 		}

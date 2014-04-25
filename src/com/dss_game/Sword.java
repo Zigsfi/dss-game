@@ -42,11 +42,12 @@ public class Sword implements Weapon {
 	public Bitmap menu(int x, int y, Paint p) {
 		menuX = x;
 		menuY = y;
-		return menu.render(p);
+		return menu.render(300, 400, p);
 	}
     
 	@Override
 	public boolean tapped(int x, int y) {
+<<<<<<< HEAD
 		Action a = menu.click(x - menuX, y - menuY);
 		if (a != null)
 			readiness = a.execute();
@@ -55,6 +56,22 @@ public class Sword implements Weapon {
 		System.out.println("Checking");
 
 		return a != null;
+=======
+Action a = menu.click(x - menuX, y - menuY);
+		
+		System.out.println("Checking");
+		if (readiness <= 0) {
+			readiness = 100;
+			if (a != null)
+				a.execute();
+			else 
+				System.out.println("No action");
+
+			return true;
+		}
+		System.out.println("Not ready yet");
+		return false;
+>>>>>>> a6690e193e249575ae352f07816a47e13f579c9d
 	}
 		
 	private class Stab implements Action {
