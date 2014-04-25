@@ -58,7 +58,7 @@ public class T_shirt implements Armor{
 	
 	private class HulkRip implements Action {
 		@Override
-		public void execute() {
+		public int execute() {
 			// TODO polish up and see if this how we want to do this
 			engine.player.changeDef( defence);
 			Timer def_T = new Timer();
@@ -71,7 +71,7 @@ public class T_shirt implements Armor{
 				}
 			}, 1000*3);
 			
-			
+			return 200;
 		}
 	}
 

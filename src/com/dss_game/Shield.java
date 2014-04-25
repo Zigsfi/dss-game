@@ -42,34 +42,18 @@ public class Shield implements Weapon {
 	public Bitmap menu(int x, int y, Paint p) {
 		menuX = x;
 		menuY = y;
-		return menu.render(300, 400, p);
+		return menu.render(x, y, p);
 	}
 	
 	@Override
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
-<<<<<<< HEAD
 		if (a != null)
 			readiness = a.execute();
 		else 
 			System.out.println("No action");
 		return a != null;
 
-=======
-		
-		System.out.println("Checking");
-		if (readiness <= 0) {
-			readiness = 100;
-			if (a != null)
-				a.execute();
-			else 
-				System.out.println("No action");
-
-			return true;
-		}
-		System.out.println("Not ready yet");
-		return false;
->>>>>>> a6690e193e249575ae352f07816a47e13f579c9d
 	}
 	
 	private class Raise implements Action {
