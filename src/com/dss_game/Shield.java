@@ -49,22 +49,17 @@ public class Shield implements Weapon {
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
 		if (a != null)
-			a.execute();
+			readiness = a.execute();
 		else 
 			System.out.println("No action");
-		System.out.println("Checking");
-		if (readiness <= 0) {
-			readiness = 100;
+		return a != null;
 
-			return true;
-		}
-		return false;
 	}
 	
 	private class Raise implements Action {
 
 		@Override
-		public void execute() {
+		public int execute() {
 			// TODO polish up and see if this how we want to do this
 			engine.player.changeDef( defence);
 			Timer def_T = new Timer();
@@ -75,17 +70,17 @@ public class Shield implements Weapon {
 					return;
 				}
 			}, 1000*3);
-			
+			return 100;
 			
 		}}
 	
 	private class Bash implements Action {
 
 		@Override
-		public void execute() {
+		public int execute() {
 			// TODO select an enemy from monster array in engine
 			engine.monster.take_dmg( (-1 * bash_damage));
-			
+			return 200;
 		}}
 
 }

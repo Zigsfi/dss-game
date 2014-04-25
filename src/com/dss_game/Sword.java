@@ -49,24 +49,21 @@ public class Sword implements Weapon {
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
 		if (a != null)
-			a.execute();
+			readiness = a.execute();
 		else 
 			System.out.println("No action");
 		System.out.println("Checking");
-		if (readiness <= 0) {
-			readiness = 100;
 
-			return true;
-		}
-		return false;
+		return a != null;
 	}
 		
 	private class Stab implements Action {
 
 		@Override
-		public void execute() {
+		public int execute() {
 			// TODO select an enemy from monster array in engine
 			engine.monster.take_dmg( (-1 * attack));			
+			return 100;
 		}
 		
 	}
@@ -74,9 +71,10 @@ public class Sword implements Weapon {
 	private class Slash implements Action {
 
 		@Override
-		public void execute() {
+		public int execute() {
 			// TODO select an enemy from monster array in engine
 			engine.monster.take_dmg( (int)(-0.5 * attack));
+			return 100;
 			
 		}}
 	

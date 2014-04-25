@@ -51,8 +51,6 @@ public class Engine extends SurfaceView implements Callback {
 	}
 
 	public void init(String directory) {
-
-
 		room = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = new Demon();
