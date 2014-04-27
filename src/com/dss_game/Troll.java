@@ -146,4 +146,10 @@ public class Troll implements Monster, Stats {
 		
 	}
 
+	@Override
+	public void death() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -7,4 +7,5 @@ public interface Monster {
 	public void draw(Canvas c);
 	public void update();
 	public void take_dmg(int dmg);
+	public void death();
 }

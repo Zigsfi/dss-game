@@ -48,13 +48,19 @@ public class Sword implements Weapon {
 	@Override
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
-		if (a != null)
-			readiness = a.execute();
-		else 
-			System.out.println("No action");
+		
 		System.out.println("Checking");
+		if (readiness <= 0) {
+			readiness = 100;
+			if (a != null)
+				a.execute();
+			else 
+				System.out.println("No action");
 
-		return a != null;
+			return true;
+		}
+		System.out.println("Not ready yet");
+		return false;
 	}
 		
 	private class Stab implements Action {

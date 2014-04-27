@@ -34,6 +34,9 @@ public class Demon implements Monster, Stats {
 
 	@Override
 	public void update() {
+		if (Hp <= 0){
+			death();
+		}
 
 	}
 
@@ -150,6 +153,15 @@ public class Demon implements Monster, Stats {
 	public void take_dmg(int dmg) {
 		changeHp((dmg+Def));
 		System.out.println( String.format("Deamon HP: %d", Hp));
+		
+	}
+
+	@Override
+	public void death() {
+		// TODO Auto-generated method stub
+		if (Hp <= 0 ){
+			death();
+		}
 		
 	}
 
