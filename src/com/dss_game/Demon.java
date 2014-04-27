@@ -159,9 +159,9 @@ public class Demon implements Monster, Stats {
 	@Override
 	public void death() {
 		// TODO Auto-generated method stub
-		if (Hp <= 0 ){
-			death();
-		}
+		Hp = 0;
+		
+		
 		
 	}
 

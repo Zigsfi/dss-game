@@ -68,8 +68,8 @@ public class Sword implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (-1 * attack));			
-			return 100;
+			engine.monster.take_dmg( (-1 * (engine.player.getStr() + attack)));			
+			return 150;
 		}
 		
 	}
@@ -79,7 +79,7 @@ public class Sword implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (int)(-0.5 * attack));
+			engine.monster.take_dmg( (int)(-0.5 * (engine.player.getStr() + attack)));
 			return 100;
 			
 		}}

@@ -116,6 +116,7 @@ public class Player implements Stats {
 	@Override
 	public void changeStr(int addStr) {
 		Str = Str + addStr;
+		System.out.println( String.format("Player Str: %d", Str));
 		
 	}
 
