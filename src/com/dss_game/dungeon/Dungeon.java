@@ -93,7 +93,7 @@ public class Dungeon {
 		while (roomIt.hasNext()) {
 			Room r = roomIt.next();
 			if (r.drawrec.contains(x, y)) {
-				if (r.links.indexOf(curRoom) != -1) {
+				if (r.links.indexOf(curRoom) != -1 || r.visited) {
 					curRoom = r;
 				}
 			}
@@ -112,7 +112,7 @@ public class Dungeon {
 			Room r = roomIt.next();
 			p.setARGB(255, 255, 0, 0);
 
-			//c.drawRect(r.drawrec, p);
+	//		c.drawRect(r.drawrec, p);
 			p.setARGB(255, 0, 0, 255);
 			if (curRoom == r) {
 				p.setARGB(255, 255, 255, 255);
@@ -120,16 +120,31 @@ public class Dungeon {
 			if (r.links.indexOf(curRoom) != -1) {
 				p.setARGB(255, 255, 0, 0);
 			}
-			if (r.visited)
+			if (r.visited) {
 				c.drawRect(r.drawrec, p);
+				p.setARGB(255, 0, 0, 0);
+				c.drawLine(r.drawrec.left, r.drawrec.top, r.drawrec.left + r.drawrec.width(), r.drawrec.top, p);
+				c.drawLine(r.drawrec.left + r.drawrec.width(), r.drawrec.top, r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
+				c.drawLine(r.drawrec.left, r.drawrec.top + r.drawrec.height(), r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
+				c.drawLine(r.drawrec.right, r.drawrec.top, r.drawrec.right, r.drawrec.bottom, p);
+
+			
+			}
 
 		}
 		p.setARGB(255, 255, 255, 255);
 		Object[] as = mst.toArray();
 		for (int i = 0; i < as.length; i++) {
 			Edge e = (Edge) as[i];
-			if (e.a.visited || e.b.visited)
+			if (e.a.visited || e.b.visited) {
+				p.setARGB(255, 255, 255, 255);
+
 				c.drawLine(e.a.drawrec.centerX(), e.a.drawrec.centerY(), e.b.drawrec.centerX(), e.b.drawrec.centerY(), p);
+				p.setARGB(100, 128, 128, 128);
+				c.drawCircle(e.a.drawrec.centerX(), e.a.drawrec.centerY(), 30, p);
+				c.drawCircle(e.b.drawrec.centerX(), e.b.drawrec.centerY(), 30, p);
+
+			}
 		}
 		return b;
 	}
