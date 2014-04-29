@@ -30,6 +30,9 @@ public class Player implements Stats {
 	}
 
 	public void update() {
+		if (Hp <= 0){
+			System.out.println("The player is dead!...");
+		}
 	}
 
 	public void draw (Canvas c) {
@@ -38,7 +41,7 @@ public class Player implements Stats {
 		int left_x, left_y, right_x, right_y, mid_x, mid_y;
 		left_x = (int)(200 * Engine.scaleX);
 		left_y = (int)((900+left.readiness()) * Engine.scaleY);
-		c.drawBitmap(left.menu(left_x, left_y, engine.paint), left_x, left_y, engine.paint);
+		c.drawBitmap(left.menu(400, left_y, engine.paint), left_x, left_y, engine.paint);
 		mid_x = (int)(700 * Engine.scaleX);
 		mid_y = (int)((900+middle.readiness()) * Engine.scaleY);
 		c.drawBitmap(middle.menu(mid_x, mid_y,  engine.paint), mid_x, mid_y, engine.paint);
@@ -113,6 +116,7 @@ public class Player implements Stats {
 	@Override
 	public void changeStr(int addStr) {
 		Str = Str + addStr;
+		System.out.println( String.format("Player Str: %d", Str));
 		
 	}
 

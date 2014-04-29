@@ -10,6 +10,7 @@ public class Troll implements Monster, Stats {
 	Engine engine;
 	Bitmap image;
 	int x, y;
+	int Hp, Mp, Str, Def, Dex, IQ;
 	public Troll() {
 		x = 900;
 		y = 500;
@@ -29,6 +30,10 @@ public class Troll implements Monster, Stats {
 
 	@Override
 	public void update() {
+		if (Hp <= 0) {
+			death();
+			
+		}
 
 	}
 
@@ -143,6 +148,12 @@ public class Troll implements Monster, Stats {
 	@Override
 	public void take_dmg(int dmg) {
 		changeHp( dmg);
+		
+	}
+
+	@Override
+	public void death() {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -99,6 +99,8 @@ public class Engine extends SurfaceView implements Callback {
 	}
 	public void update() {
 		handleInput();
+		player.update();
+		monster.update();
 	}
 	
 	public void handleInput() {

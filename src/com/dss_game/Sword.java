@@ -48,13 +48,19 @@ public class Sword implements Weapon {
 	@Override
 	public boolean tapped(int x, int y) {
 		Action a = menu.click(x - menuX, y - menuY);
-		if (a != null)
-			readiness = a.execute();
-		else 
-			System.out.println("No action");
+		
 		System.out.println("Checking");
+		if (readiness <= 0) {
+			readiness = 100;
+			if (a != null)
+				a.execute();
+			else 
+				System.out.println("No action");
 
-		return a != null;
+			return true;
+		}
+		System.out.println("Not ready yet");
+		return false;
 	}
 		
 	private class Stab implements Action {
@@ -62,8 +68,8 @@ public class Sword implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (-1 * attack));			
-			return 100;
+			engine.monster.take_dmg( (-1 * (engine.player.getStr() + attack)));			
+			return 150;
 		}
 		
 	}
@@ -73,7 +79,7 @@ public class Sword implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (int)(-0.5 * attack));
+			engine.monster.take_dmg( (int)(-0.5 * (engine.player.getStr() + attack)));
 			return 100;
 			
 		}}

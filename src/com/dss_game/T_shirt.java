@@ -15,6 +15,7 @@ public class T_shirt implements Armor{
 	//TODO give this T-shirt states
 	int defence = 5;
 	
+	
 	private int menuX;
 	private int menuY;
 	Engine engine;	
@@ -60,12 +61,12 @@ public class T_shirt implements Armor{
 		@Override
 		public int execute() {
 			// TODO polish up and see if this how we want to do this
-			engine.player.changeDef( defence);
+			engine.player.changeStr( 3);
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					engine.player.changeDef((-1 * defence));
+					engine.player.changeStr((-3));
 					
 					return;
 				}
