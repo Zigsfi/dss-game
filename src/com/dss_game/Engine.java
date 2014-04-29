@@ -3,6 +3,7 @@ package com.dss_game;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import com.dss_game.dungeon.Dungeon;
 import com.example.dss_game.R;
 
 import android.content.Context;
@@ -34,6 +35,8 @@ public class Engine extends SurfaceView implements Callback {
 	static Display display;
 	static float scaleX;
 	static float scaleY;
+	boolean fighting = true;
+
 	public Engine(Context context, AttributeSet attrs) {
 		super(context);
 		getHolder().addCallback(this);
@@ -49,27 +52,50 @@ public class Engine extends SurfaceView implements Callback {
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
 	}
-
-	public void init(String directory) {
-		room = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
-		monster = new Demon();
-		monster.init(this);
-		player = new Player(this);
+	public void init(String oscar){ 
 		surfaceholder = this.getHolder();
+
 		new Thread() {
 			public void run() {
+				//initFight("");
+				Dungeon dungeon = new Dungeon();
 				while (true) {
-					update();
-					repaint();
+					if (click)
+						dungeon.tapped(x, y);
+					Canvas c = surfaceholder.lockCanvas();
+					if (c!=null) {
+						c.drawBitmap(dungeon.render(), 0, 0, paint);
+						surfaceholder.unlockCanvasAndPost(c);
+					}
 					try {
 						sleep(5);
 					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}
 		}.start();
+	}
+	public void initFight(String directory) {
+		room = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
+		monster = new Demon();
+		monster.init(this);
+		player = new Player(this);
+//		new Thread() {
+//			public void run() {
+				while (fighting) {
+					update();
+					repaint();
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+//			}
+//		}.start();
 	}
 	public void update() {
 		handleInput();
