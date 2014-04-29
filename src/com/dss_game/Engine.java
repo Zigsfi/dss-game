@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import com.dss_game.dungeon.Dungeon;
+import com.dss_game.dungeon.Room;
 import com.example.dss_game.R;
 
 import android.content.Context;
@@ -33,9 +34,16 @@ public class Engine extends SurfaceView implements Callback {
 	SurfaceHolder surfaceholder;
 	Player player;
 	static Display display;
-	static float scaleX;
-	static float scaleY;
+	public static float scaleX;
+	public static float scaleY;
 	boolean fighting = true;
+	
+	public static float scaleX() {
+		return scaleX;
+	}
+	public static float scaleY() {
+		return scaleY;
+	}
 
 	public Engine(Context context, AttributeSet attrs) {
 		super(context);
@@ -54,11 +62,11 @@ public class Engine extends SurfaceView implements Callback {
 	}
 	public void init(String oscar){ 
 		surfaceholder = this.getHolder();
-
+		final Engine engine = this;
 		new Thread() {
 			public void run() {
 				//initFight("");
-				Dungeon dungeon = new Dungeon();
+				Dungeon dungeon = new Dungeon(engine);
 				while (true) {
 					if (click)
 						dungeon.tapped(x, y);
@@ -77,7 +85,7 @@ public class Engine extends SurfaceView implements Callback {
 			}
 		}.start();
 	}
-	public void initFight(String directory) {
+	public void initFight(Room r) {
 		room = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = new Demon();

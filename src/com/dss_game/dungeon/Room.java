@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import android.graphics.Rect;
 
 import com.dss_game.Monster;
+import com.example.dss_game.Engine;
 
 public class Room {
 	
@@ -22,7 +23,7 @@ public class Room {
 		w = rand(5 ) + 1;
 		h = rand(5 ) + 1;
 		rec = new Rect(x, y, x + w, y + h);
-		drawrec = new Rect(x * 30, y * 30, x * 30 + w * 30, y * 30 + h * 30);
+		drawrec = new Rect((int)(x * 30 * com.dss_game.Engine.scaleX), (int)(y * 30 * com.dss_game.Engine.scaleY), (int)((x * 30 + w * 30) * com.dss_game.Engine.scaleX), (int)((y * 30 + h * 30) * com.dss_game.Engine.scaleY));
 		sentinel = new LinkedList<Room>();
 		links = new LinkedList<Room>();
 		sentinel.add(this);

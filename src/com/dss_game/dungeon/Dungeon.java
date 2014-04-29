@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import com.dss_game.Engine;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -20,9 +22,10 @@ public class Dungeon {
 	public Edge[] edges;
 	public LinkedList<Edge> mst;
 	public Room curRoom;
-	public Dungeon() {
+	Engine engine;
+	public Dungeon(Engine e) {
 		rooms = new LinkedList<Room>();
-
+		engine = e;
 		generate();
 	}
 	public void generate() {
@@ -105,7 +108,9 @@ public class Dungeon {
 	public Bitmap render(){
 		Bitmap b = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
 		Canvas c = new Canvas(b);
+		
 		Paint p = new Paint();
+		c.drawRect(0, 0, 10000, 10000, p);
 		ListIterator<Room> roomIt = rooms.listIterator();
 		curRoom.visited = true;
 		while (roomIt.hasNext()) {
@@ -141,8 +146,8 @@ public class Dungeon {
 
 				c.drawLine(e.a.drawrec.centerX(), e.a.drawrec.centerY(), e.b.drawrec.centerX(), e.b.drawrec.centerY(), p);
 				p.setARGB(100, 128, 128, 128);
-				c.drawCircle(e.a.drawrec.centerX(), e.a.drawrec.centerY(), 30, p);
-				c.drawCircle(e.b.drawrec.centerX(), e.b.drawrec.centerY(), 30, p);
+				c.drawCircle(e.a.drawrec.centerX(), e.a.drawrec.centerY(), 30 * Engine.scaleX, p);
+				c.drawCircle(e.b.drawrec.centerX(), e.b.drawrec.centerY(), 30 * Engine.scaleY, p);
 
 			}
 		}
