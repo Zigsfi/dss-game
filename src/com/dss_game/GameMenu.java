@@ -8,6 +8,7 @@ import android.graphics.Paint;
 
 public class GameMenu {
 	ArrayList <MenuItem> menu;
+	private int recentlyClicked;
 	public GameMenu() {
 		menu = new ArrayList<MenuItem>();
 	}
@@ -25,6 +26,10 @@ public class GameMenu {
 		transparent.setARGB(128, 128, 128, 128);
 		c.drawRect(0, 0, b.getWidth(), b.getHeight(), transparent);
 		for (int i = 0; i < menu.size(); i++) {
+			if (i == recentlyClicked)
+				p.setARGB(255, 255, 255, 0);
+			else
+				p.setARGB(255, 0, 0, 0);
 			c.drawText(menu.get(i).getName(), 10, i * 70 + 50, p);
 			//System.out.println(menu.get(i).getName());
 		}
@@ -32,10 +37,13 @@ public class GameMenu {
 	}
 	
 	public Action click(int x, int y) {
+		if (y < 0) return null;
 		int i = y / 70;
 		System.out.println(i);
 
 		if (i < menu.size() && i >= 0) {
+			recentlyClicked = i;
+
 			return menu.get(i).getAction();
 		}
 		return null;

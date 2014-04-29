@@ -98,6 +98,7 @@ public class Dungeon {
 			if (r.drawrec.contains(x, y)) {
 				if (r.links.indexOf(curRoom) != -1 || r.visited) {
 					curRoom = r;
+					engine.initFight(r);
 				}
 			}
 			//c.drawRect(r.drawrec, p);
@@ -147,7 +148,7 @@ public class Dungeon {
 				c.drawLine(e.a.drawrec.centerX(), e.a.drawrec.centerY(), e.b.drawrec.centerX(), e.b.drawrec.centerY(), p);
 				p.setARGB(100, 128, 128, 128);
 				c.drawCircle(e.a.drawrec.centerX(), e.a.drawrec.centerY(), 30 * Engine.scaleX, p);
-				c.drawCircle(e.b.drawrec.centerX(), e.b.drawrec.centerY(), 30 * Engine.scaleY, p);
+				c.drawCircle(e.b.drawrec.centerX(), e.b.drawrec.centerY(), 30 * Engine.scaleX, p);
 
 			}
 		}

@@ -14,7 +14,7 @@ public class Player implements Stats {
 	int Def;
 	int Dex;
 	int IQ /*Intellect*/;
-	
+
 	public Player(Engine e) {
 		engine = e;
 		right = new Sword(e);
@@ -26,7 +26,7 @@ public class Player implements Stats {
 		Def = 10; /* + shiedStats*/
 		Dex = 10; /* + armorStats - shieldStats*/
 		IQ = 10; /* + rightStats*/
-		
+
 	}
 
 	public void update() {
@@ -48,19 +48,21 @@ public class Player implements Stats {
 		right_x = (int)(1280 * Engine.scaleX);
 		right_y = (int)((900+right.readiness()) * Engine.scaleY);
 		c.drawBitmap(right.menu(right_x, right_y, engine.paint), right_x, right_y, engine.paint);
-		
+
 		//TODO health and magic status in top of screen
 	}
 
 	public void handleInput(int x, int y) {
 		System.out.println("Handling");
 		int trisect_screen = Engine.display.getWidth() / 3;
-		if (x < trisect_screen) {
-			left.tapped(x, y);
-		} else if(x < (2*trisect_screen)) {
-			middle.tapped(x, y);			
-		} else {
-			right.tapped(x, y);
+		if (y > 800 * Engine.scaleX) {
+			if (x < trisect_screen) {
+				left.tapped(x, y);
+			} else if(x < (2*trisect_screen)) {
+				middle.tapped(x, y);			
+			} else {
+				right.tapped(x, y);
+			}
 		}
 
 	}
@@ -74,13 +76,13 @@ public class Player implements Stats {
 	@Override
 	public void setHp(int curHp) {
 		Hp = curHp;
-		
+
 	}
 
 	@Override
 	public void changeHp(int addHp) {
 		Hp = Hp + addHp;
-		
+
 	}
 
 	@Override
@@ -92,13 +94,13 @@ public class Player implements Stats {
 	@Override
 	public void setMp(int curMp) {
 		Mp = curMp;
-		
+
 	}
 
 	@Override
 	public void changeMp(int addMp) {
 		Mp = Mp + addMp;
-		
+
 	}
 
 	@Override
@@ -110,14 +112,14 @@ public class Player implements Stats {
 	@Override
 	public void setStr(int curStr) {
 		Str = curStr;
-		
+
 	}
 
 	@Override
 	public void changeStr(int addStr) {
 		Str = Str + addStr;
 		System.out.println( String.format("Player Str: %d", Str));
-		
+
 	}
 
 	@Override
@@ -129,14 +131,14 @@ public class Player implements Stats {
 	@Override
 	public void setDef(int curDef) {
 		Def = curDef;
-		
+
 	}
 
 	@Override
 	public void changeDef(int addDef) {
 		Def = Def + addDef;
 		System.out.println( String.format("Player Def: %d", Def));
-		
+
 	}
 
 	@Override
@@ -148,13 +150,13 @@ public class Player implements Stats {
 	@Override
 	public void setDex(int curDex) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void changeDex(int addDex) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -166,12 +168,12 @@ public class Player implements Stats {
 	@Override
 	public void setInt(int curInt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void changeInt(int addInt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -48,17 +48,19 @@ public class Shield implements Weapon {
 	
 	@Override
 	public boolean tapped(int x, int y) {
-		Action a = menu.click(x - menuX, y - menuY);
 
 		System.out.println("Checking");
+		
 		if (readiness <= 0) {
-			readiness = 100;
-			if (a != null)
-				a.execute();
+			Action a = menu.click(x - menuX, y - menuY);
+
+			if (a != null) {
+				readiness = a.execute();
+				return true;
+			}
 			else 
 				System.out.println("No action");
 
-			return true;
 		}
 		System.out.println("Not ready yet");
 		return false;
