@@ -43,7 +43,7 @@ public class Demon implements Monster, Stats {
 	@Override
 	public int getHp() {
 		// TODO Auto-generated method stub
-		return 0;
+		return Hp;
 	}
 
 	@Override

@@ -22,16 +22,19 @@ public class Dungeon {
 	public Edge[] edges;
 	public LinkedList<Edge> mst;
 	public Room curRoom;
+	Bitmap b;
 	Engine engine;
 	public Dungeon(Engine e) {
 		rooms = new LinkedList<Room>();
+		b = Bitmap.createBitmap((int)(5000 * Engine.scaleX), (int)(5000 * Engine.scaleY), Bitmap.Config.ARGB_8888);
+
 		engine = e;
 		generate();
 	}
 	public void generate() {
 		LinkedList<Edge> edges = new LinkedList<Edge>();
 
-		for (int i = 0; i < 80; i++) {
+		for (int i = 0; i < 180; i++) {
 			Room r = new Room();
 			ListIterator<Room> roomIt = rooms.listIterator();
 			boolean fits = true;
@@ -74,9 +77,13 @@ public class Dungeon {
 				}
 				mst.add(e);
 			}
-
-
 		}
+		/*
+		for (int i = 0; i < array.length/40; i++) {
+			if (mst.indexOf((Edge) array[i]) == -1)
+				mst.add((Edge) array[i]);
+		}
+		*/
 		ListIterator<Edge> edgeIt = mst.listIterator();
 		while (edgeIt.hasNext()) {
 			Edge mstEdge = edgeIt.next();
@@ -90,7 +97,7 @@ public class Dungeon {
 	}
 
 	public void tapped (int x, int y) {
-		System.out.println("Balls");
+		//	System.out.println("Balls");
 		ListIterator<Room> roomIt = rooms.listIterator();
 		curRoom.visited = true;
 		while (roomIt.hasNext()) {
@@ -98,7 +105,21 @@ public class Dungeon {
 			if (r.drawrec.contains(x, y)) {
 				if (r.links.indexOf(curRoom) != -1 || r.visited) {
 					curRoom = r;
-					engine.initFight(r);
+					if (!r.visited) {
+						engine.initFight(r);
+						for (int i = 0; i < 100; i++) {
+							Canvas c = engine.surfaceholder.lockCanvas();
+							if (c != null) {
+								c.drawRect((960 * Engine.scaleX) - (i * 10), (600 * Engine.scaleY) - i * 10, 960 + i * 20, 600 + i * 20, new Paint());
+								engine.surfaceholder.unlockCanvasAndPost(c);
+							}
+							try {
+								Thread.sleep(5);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}
 				}
 			}
 			//c.drawRect(r.drawrec, p);
@@ -107,18 +128,17 @@ public class Dungeon {
 	}
 
 	public Bitmap render(){
-		Bitmap b = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
 		Canvas c = new Canvas(b);
-		
+
 		Paint p = new Paint();
-		c.drawRect(0, 0, 10000, 10000, p);
+		c.drawRect(0, 0, 5000, 5000, p);
 		ListIterator<Room> roomIt = rooms.listIterator();
 		curRoom.visited = true;
 		while (roomIt.hasNext()) {
 			Room r = roomIt.next();
 			p.setARGB(255, 255, 0, 0);
 
-	//		c.drawRect(r.drawrec, p);
+			//		c.drawRect(r.drawrec, p);
 			p.setARGB(255, 0, 0, 255);
 			if (curRoom == r) {
 				p.setARGB(255, 255, 255, 255);
@@ -133,10 +153,7 @@ public class Dungeon {
 				c.drawLine(r.drawrec.left + r.drawrec.width(), r.drawrec.top, r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
 				c.drawLine(r.drawrec.left, r.drawrec.top + r.drawrec.height(), r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
 				c.drawLine(r.drawrec.right, r.drawrec.top, r.drawrec.right, r.drawrec.bottom, p);
-
-			
 			}
-
 		}
 		p.setARGB(255, 255, 255, 255);
 		Object[] as = mst.toArray();

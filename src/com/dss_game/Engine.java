@@ -10,11 +10,16 @@ import com.example.dss_game.R;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureOverlayView.OnGestureListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Environment;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -24,20 +29,21 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
-public class Engine extends SurfaceView implements Callback {
+public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	int x = 0, y = 0;
 	boolean click = false;
 	Bitmap room, sword, shield;
 	Monster monster;
 	private String directory;
 	Paint paint;
-	SurfaceHolder surfaceholder;
+	public SurfaceHolder surfaceholder;
 	Player player;
 	static Display display;
 	public static float scaleX;
 	public static float scaleY;
+	public int dungeonX = 0, 	 dungeonY = 0;
 	boolean fighting = true;
-	
+
 	public static float scaleX() {
 		return scaleX;
 	}
@@ -57,6 +63,7 @@ public class Engine extends SurfaceView implements Callback {
 		display = wm.getDefaultDisplay();
 		scaleX = (float)display.getWidth() / 1920.0f;
 		scaleY = (float)display.getHeight() / 1200.0f;
+
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
 	}
@@ -64,15 +71,24 @@ public class Engine extends SurfaceView implements Callback {
 		surfaceholder = this.getHolder();
 		final Engine engine = this;
 		new Thread() {
+
+
 			public void run() {
 				//initFight("");
 				Dungeon dungeon = new Dungeon(engine);
 				while (true) {
-					if (click)
-						dungeon.tapped(x, y);
+					if (click) {
+						dungeon.tapped(x - dungeonX, y - dungeonY);
+						click = false;
+					}
 					Canvas c = surfaceholder.lockCanvas();
 					if (c!=null) {
-						c.drawBitmap(dungeon.render(), 0, 0, paint);
+						paint.setARGB(255,0,0,0);
+						c.drawRect(0, 0, (int) (1920 * scaleX), (int)(1200 * scaleY), paint);
+
+						c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
+						c.drawBitmap(dungeon.curRoom.getMenu().render(300, 400, paint), 0, 0, paint);
+
 						surfaceholder.unlockCanvasAndPost(c);
 					}
 					try {
@@ -86,31 +102,53 @@ public class Engine extends SurfaceView implements Callback {
 		}.start();
 	}
 	public void initFight(Room r) {
+		paint.setARGB(255, 0, 0, 0);
+		Canvas can = null;
+		do {
+			can = surfaceholder.lockCanvas();
+			if (can != null) {
+				can.drawRect(0, 0, 10000, 10000, paint);
+				surfaceholder.unlockCanvasAndPost(can);
+			}
+		} while (can == null);
+		paint.setARGB(255, 255, 255, 255);
+		for (int i = 0; i < 100; i++) {
+			Canvas c = surfaceholder.lockCanvas();
+			if (c != null) {
+				c.drawRect((960 * scaleX) - (i * 10), (600 * scaleX) - i * 10, i * 20, i * 20, paint);
+				surfaceholder.unlockCanvasAndPost(c);
+			}
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		fighting = true;
 		room = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = new Demon();
 		monster.init(this);
 		player = new Player(this);
-//		new Thread() {
-//			public void run() {
-				while (fighting) {
-					update();
-					repaint();
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-//			}
-//		}.start();
+		while (fighting) {
+			update();
+			repaint();
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	public void update() {
 		handleInput();
 		player.update();
 		monster.update();
+		if (((Stats)monster).getHp() <= 0) {
+			fighting = false;
+		}
 	}
-	
+
 	public void handleInput() {
 		if (click)
 			player.handleInput(x, y);
@@ -153,12 +191,52 @@ public class Engine extends SurfaceView implements Callback {
 			//	e.printStackTrace();
 		}
 	}
+
 	public boolean onTouchEvent(MotionEvent event) {
-		x=(int)event.getX(0);
-		y=(int)event.getY(0);
+
+		int action = MotionEventCompat.getActionMasked(event);
+		switch (action){
+		case (MotionEvent.ACTION_DOWN) :
+			x=(int)event.getRawX();
+		y=(int)event.getRawY();
+		return true;
+		case (MotionEvent.ACTION_MOVE) :
+			int ox=(int)event.getRawX();
+		int oy=(int)event.getRawY();
+		dungeonX -= x - ox;
+		dungeonY -= y - oy;
+		y = oy;
+		x = ox;
+		return true;
+		case (MotionEvent.ACTION_UP) :
+			x=(int)event.getRawX();
+		y=(int)event.getRawY();
 		click = true;
-		System.out.println("Click!!!");
-		return super.onTouchEvent(event);
+		return true;
+		default:
+			return super.onTouchEvent(event);
+
+		}
+
+	}
+	@Override
+	public void onGesture(GestureOverlayView overlay, MotionEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void onGestureCancelled(GestureOverlayView overlay, MotionEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void onGestureEnded(GestureOverlayView overlay, MotionEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void onGestureStarted(GestureOverlayView overlay, MotionEvent event) {
+		// TODO Auto-generated method stub
 
 	}
 }
