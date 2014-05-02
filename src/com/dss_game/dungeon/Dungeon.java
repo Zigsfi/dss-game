@@ -12,7 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
+import com.dss_game.Action;
 public class Dungeon {
 
 
@@ -95,8 +95,15 @@ public class Dungeon {
 	public static double distance(Rect a, Rect b) {
 		return Math.sqrt(Math.pow((float)(a.centerX() - b.centerX()), 2) + Math.pow((float)(a.centerY() - b.centerY()), 2));
 	}
-
-	public void tapped (int x, int y) {
+	public void tapped(int x, int y, int dX, int dY) {
+		if (x < 400 && y < 300) {
+			Action a = curRoom.getMenu().click(x, y);
+			if (a != null)
+				a.execute();
+		}
+		tappedRoom(x - dX, y - dY);
+	}
+	public void tappedRoom (int x, int y) {
 		//	System.out.println("Balls");
 		ListIterator<Room> roomIt = rooms.listIterator();
 		curRoom.visited = true;
@@ -107,10 +114,14 @@ public class Dungeon {
 					curRoom = r;
 					if (!r.visited) {
 						engine.initFight(r);
-						for (int i = 0; i < 100; i++) {
+						
+						for (int i = 0; i < 25; i++) {
 							Canvas c = engine.surfaceholder.lockCanvas();
 							if (c != null) {
-								c.drawRect((960 * Engine.scaleX) - (i * 10), (600 * Engine.scaleY) - i * 10, 960 + i * 20, 600 + i * 20, new Paint());
+								engine.paint.setARGB(255, 255, 255, 255);
+								c.drawRect(0, 0, 10000, 10000, engine.paint);
+								engine.paint.setARGB(255, 0, 0, 0);
+								c.drawRect((960 * Engine.scaleX) - (i * 10), (600 * Engine.scaleY) - i * 10, 960 + i * 20, 600 + i * 20, engine.paint);
 								engine.surfaceholder.unlockCanvasAndPost(c);
 							}
 							try {

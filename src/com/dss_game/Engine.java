@@ -35,13 +35,13 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	Bitmap room, sword, shield;
 	Monster monster;
 	private String directory;
-	Paint paint;
+	public Paint paint;
 	public SurfaceHolder surfaceholder;
-	Player player;
+	public static Player player;
 	static Display display;
 	public static float scaleX;
 	public static float scaleY;
-	public int dungeonX = 0, 	 dungeonY = 0;
+	public int dungeonX = 0, dungeonY = 0;
 	boolean fighting = true;
 
 	public static float scaleX() {
@@ -63,6 +63,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		display = wm.getDefaultDisplay();
 		scaleX = (float)display.getWidth() / 1920.0f;
 		scaleY = (float)display.getHeight() / 1200.0f;
+		player = new Player(this);
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
@@ -76,9 +77,15 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			public void run() {
 				//initFight("");
 				Dungeon dungeon = new Dungeon(engine);
+				if (dungeon.curRoom.x > 1920 * scaleX) {
+					dungeonX -= (int)(dungeon.curRoom.x - 1920 * scaleX);
+				}
+				if (dungeon.curRoom.y > 1200 * scaleY) {
+					dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
+				}
 				while (true) {
 					if (click) {
-						dungeon.tapped(x - dungeonX, y - dungeonY);
+						dungeon.tapped(x, y, dungeonX, dungeonY);
 						click = false;
 					}
 					Canvas c = surfaceholder.lockCanvas();
@@ -103,20 +110,19 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	}
 	public void initFight(Room r) {
 		paint.setARGB(255, 0, 0, 0);
-		Canvas can = null;
-		do {
-			can = surfaceholder.lockCanvas();
+		player.left.setReadiness(0);
+		player.middle.setReadiness(0);
+		player.right.setReadiness(0);
+		for (int i = 0; i < 25; i++) {
+			Canvas can = surfaceholder.lockCanvas();
+			paint.setARGB(255, 0, 0, 0);
 			if (can != null) {
 				can.drawRect(0, 0, 10000, 10000, paint);
+
+				paint.setARGB(255, 255, 255, 255);
+
+				can.drawRect((960 * scaleX) - (i * 40), (600 * scaleY) - i * 40, (960 * scaleX) + i * 40, (600 * scaleY) + i * 40, paint);
 				surfaceholder.unlockCanvasAndPost(can);
-			}
-		} while (can == null);
-		paint.setARGB(255, 255, 255, 255);
-		for (int i = 0; i < 100; i++) {
-			Canvas c = surfaceholder.lockCanvas();
-			if (c != null) {
-				c.drawRect((960 * scaleX) - (i * 10), (600 * scaleX) - i * 10, i * 20, i * 20, paint);
-				surfaceholder.unlockCanvasAndPost(c);
 			}
 			try {
 				Thread.sleep(5);
@@ -129,7 +135,6 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = new Demon();
 		monster.init(this);
-		player = new Player(this);
 		while (fighting) {
 			update();
 			repaint();

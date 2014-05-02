@@ -76,4 +76,10 @@ public class T_shirt implements Armor{
 		}
 	}
 
+	@Override
+	public void setReadiness(int i) {
+		// TODO Auto-generated method stub
+		readiness = i;
+	}
+
 }

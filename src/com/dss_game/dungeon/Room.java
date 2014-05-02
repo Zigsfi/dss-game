@@ -4,12 +4,13 @@ import java.util.LinkedList;
 
 import android.graphics.Rect;
 
+import com.dss_game.Action;
 import com.dss_game.GameMenu;
 import com.dss_game.Monster;
-import com.example.dss_game.Engine;
+import com.dss_game.Engine;
 
 public class Room {
-	
+
 	public Monster[] monsters;
 	//public Treasure[] treasures;
 	//TODO: implement treasure
@@ -30,15 +31,31 @@ public class Room {
 		links = new LinkedList<Room>();
 		sentinel.add(this);
 		menu = new GameMenu();
-		menu.addOption("Balls", null);
+		menu.addOption("Loot", new LootRoom());
 	}
-	
+
 	int rand(int x) {
 		return (int)(Math.random() * x);
 	}
-	
+
 	public GameMenu getMenu() {
 		return menu;
 	}
-	
+
+	private class LootRoom implements Action {
+
+
+
+		@Override
+		public int execute() {
+			// TODO Auto-generated method stub
+			if (Engine.player != null) {
+				Engine.player.give(0);
+				System.out.println("Loot");
+			}
+			menu = new GameMenu();
+			return 0;
+		}
+	}
+
 }

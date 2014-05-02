@@ -83,6 +83,12 @@ public class Sword implements Weapon {
 			return 100;
 			
 		}}
+
+	@Override
+	public void setReadiness(int i) {
+		// TODO Auto-generated method stub
+		readiness = i;
+	}
 	
 	
 

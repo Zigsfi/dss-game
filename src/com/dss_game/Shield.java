@@ -93,4 +93,10 @@ public class Shield implements Weapon {
 			return 200;
 		}}
 
+	@Override
+	public void setReadiness(int i) {
+		// TODO Auto-generated method stub
+		readiness = i;
+	}
+
 }

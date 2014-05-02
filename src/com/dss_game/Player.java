@@ -14,6 +14,7 @@ public class Player implements Stats {
 	int Def;
 	int Dex;
 	int IQ /*Intellect*/;
+	int Exp;
 
 	public Player(Engine e) {
 		engine = e;
@@ -176,4 +177,13 @@ public class Player implements Stats {
 		// TODO Auto-generated method stub
 
 	}
+
+	public void give(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
 }
