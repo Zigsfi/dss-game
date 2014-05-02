@@ -43,7 +43,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	public static float scaleY;
 	public int dungeonX = 0, dungeonY = 0;
 	boolean fighting = true;
-
+	public GameMenu mainMenu;
 	public static float scaleX() {
 		return scaleX;
 	}
@@ -64,6 +64,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		scaleX = (float)display.getWidth() / 1920.0f;
 		scaleY = (float)display.getHeight() / 1200.0f;
 		player = new Player(this);
+		mainMenu = new GameMenu();
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
