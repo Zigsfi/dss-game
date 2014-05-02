@@ -23,8 +23,8 @@ public class Room {
 	public Room() {
 		x = rand(50);
 		y = rand(50);
-		w = rand(5) + 1;
-		h = rand(5) + 1;
+		w = rand(5) + 3;
+		h = rand(5) + 3;
 		rec = new Rect(x, y, x + w, y + h);
 		drawrec = new Rect((int)(x * 50 * com.dss_game.Engine.scaleX), (int)(y * 50 * com.dss_game.Engine.scaleY), (int)((x * 50 + w * 50) * com.dss_game.Engine.scaleX), (int)((y * 50 + h * 50) * com.dss_game.Engine.scaleY));
 		sentinel = new LinkedList<Room>();

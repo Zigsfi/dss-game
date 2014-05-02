@@ -48,7 +48,8 @@ public class Dungeon {
 			}
 			if (fits) {
 				rooms.add(r);
-				curRoom = r;
+				if (r.drawrec.right < 1920 * Engine.scaleX && r.drawrec.top < 1200 * Engine.scaleY)
+					curRoom = r;
 				roomIt = rooms.listIterator();
 				while (roomIt.hasNext()) {
 					Room room = roomIt.next();
