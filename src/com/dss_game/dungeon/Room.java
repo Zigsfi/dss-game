@@ -5,13 +5,16 @@ import java.util.LinkedList;
 import android.graphics.Rect;
 
 import com.dss_game.Action;
+import com.dss_game.Demon;
 import com.dss_game.GameMenu;
 import com.dss_game.Monster;
 import com.dss_game.Engine;
+import com.dss_game.Slime;
+import com.dss_game.Spider;
 
 public class Room {
 
-	public Monster[] monsters;
+	public Monster monster;
 	//public Treasure[] treasures;
 	//TODO: implement treasure
 	public int x, y, w, h;
@@ -32,6 +35,16 @@ public class Room {
 		sentinel.add(this);
 		menu = new GameMenu();
 		menu.addOption("Loot", new LootRoom());
+		switch((int)(Math.random() * 5)){
+		case 0:
+			monster = new Slime();
+			break;
+		case 1:
+			monster = new Spider();
+			break;
+		default:
+			monster = new Demon();
+		}
 	}
 
 	int rand(int x) {

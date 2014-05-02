@@ -68,7 +68,10 @@ public class Sword implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
-			engine.monster.take_dmg( (-1 * (engine.player.getStr() + attack)));			
+			int damage = -1 * (engine.player.getStr() + attack);
+			engine.monster.take_dmg(damage);	
+			Engine.message = "Stab did " + -(damage + ((Stats)(engine.monster)).getDef()) + " damage.";
+
 			return 150;
 		}
 		
@@ -81,7 +84,7 @@ public class Sword implements Weapon {
 			// TODO select an enemy from monster array in engine
 			int damage =  (int)(-0.5 * (engine.player.getStr() + attack));
 			engine.monster.take_dmg(damage);
-			Engine.message = "Slash did " + -damage + " damage.";
+			Engine.message = "Slash did " + -(damage + ((Stats)(engine.monster)).getDef()) + " damage.";
 			return 100;
 			
 		}}
