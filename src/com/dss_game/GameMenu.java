@@ -25,6 +25,7 @@ public class GameMenu {
 		Paint transparent = new Paint();
 		transparent.setARGB(128, 128, 128, 128);
 		c.drawRect(0, 0, b.getWidth(), b.getHeight(), transparent);
+		p.setTextSize(70 * Engine.scaleY);
 		for (int i = 0; i < menu.size(); i++) {
 			if (i == recentlyClicked)
 				p.setARGB(255, 255, 255, 0);
