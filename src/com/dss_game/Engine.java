@@ -75,9 +75,12 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		new Thread() {
 
 
+			private Room startRoom;
+
 			public void run() {
 				//initFight("");
 				Dungeon dungeon = new Dungeon(engine);
+				startRoom = dungeon.curRoom;
 				if (dungeon.curRoom.x > 1920 * scaleX) {
 					dungeonX -= (int)(dungeon.curRoom.x - 1920 * scaleX);
 				}
@@ -95,7 +98,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 						c.drawRect(0, 0, (int) (1920 * scaleX), (int)(1200 * scaleY), paint);
 
 						c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
-						c.drawBitmap(dungeon.curRoom.getMenu().render(800, 400, paint), 0, 0, paint);
+						c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
 
 						surfaceholder.unlockCanvasAndPost(c);
 					}
