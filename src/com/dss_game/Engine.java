@@ -83,7 +83,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				if (dungeon.curRoom.y > 1200 * scaleY) {
 					dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
 				}
-				while (true) {
+				while (player.getHp() > 0) {
 					if (click) {
 						dungeon.tapped(x, y, dungeonX, dungeonY);
 						click = false;
