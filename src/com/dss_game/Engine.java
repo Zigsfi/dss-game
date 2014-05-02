@@ -42,6 +42,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	public static float scaleX;
 	public static float scaleY;
 	public int dungeonX = 0, dungeonY = 0;
+	public static String message;
 	boolean fighting = true;
 	public GameMenu mainMenu;
 	public static float scaleX() {
@@ -117,6 +118,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		player.left.setReadiness(0);
 		player.middle.setReadiness(0);
 		player.right.setReadiness(0);
+		message = "";
 		for (int i = 0; i < 25; i++) {
 			Canvas can = surfaceholder.lockCanvas();
 			paint.setARGB(255, 0, 0, 0);
@@ -197,7 +199,10 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			player.draw(canvas);
 
 			paint.setARGB(255, 255, 0, 0);
-			canvas.drawText("HP: " + player.getHp(), 850 * scaleX, 100 * scaleY, paint);
+			canvas.drawText("HP: " + player.getHp(), 1650 * scaleX, 100 * scaleY, paint);
+			paint.setARGB(255, 255, 255, 255);
+			canvas.drawText(Engine.message, (960 * scaleX) - paint.measureText(message)/2, 100 * scaleY, paint);
+			
 
 		} catch (Exception e) {
 			//	e.printStackTrace();

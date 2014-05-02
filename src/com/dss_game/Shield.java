@@ -79,7 +79,7 @@ public class Shield implements Weapon {
 					engine.player.changeDef((-1 * defence));
 					return;
 				}
-			}, 1000*3);
+			}, 1000*10);
 			return 100;
 			
 		}}

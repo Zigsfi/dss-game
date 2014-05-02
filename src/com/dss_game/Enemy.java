@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 
-public class Demon implements Monster, Stats {
+public class Enemy implements Monster, Stats {
 	Engine engine;
 	Bitmap image;
 	Bitmap hitImage;
@@ -18,7 +18,7 @@ public class Demon implements Monster, Stats {
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
 	int readiness = 200;
-	public Demon() {
+	public Enemy() {
 		x = 900;
 		y = 500;
 		Hp = 10;
@@ -33,7 +33,7 @@ public class Demon implements Monster, Stats {
 		Options options = new BitmapFactory.Options();
 		options.inScaled = false;
 		normImage = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.imp, options),(int)( 240 * Engine.scaleX), (int)(360 * Engine.scaleY), false);
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster, options),(int)( 240 * Engine.scaleX), (int)(360 * Engine.scaleY), false);
 		hitImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
 		image = normImage;

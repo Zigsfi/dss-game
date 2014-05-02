@@ -97,6 +97,7 @@ public class Dungeon {
 		curRoom.menu.addOption("By Will Hickey", null);
 		curRoom.menu.addOption("	& Arthur Berman", null);
 		curRoom.menu.addOption("Music by Thomas Colgrove", null);
+		
 	}
 
 	public static double distance(Rect a, Rect b) {
