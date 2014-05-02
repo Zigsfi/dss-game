@@ -19,7 +19,7 @@ public class Room {
 	public boolean visited = false;
 	public LinkedList<Room> sentinel ;
 	public LinkedList<Room> links;
-	private GameMenu menu;
+	GameMenu menu;
 	public Room() {
 		x = rand(50);
 		y = rand(50);

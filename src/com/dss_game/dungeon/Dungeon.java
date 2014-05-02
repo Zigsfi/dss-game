@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import com.dss_game.Engine;
+import com.dss_game.GameMenu;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -91,6 +92,11 @@ public class Dungeon {
 			mstEdge.a.links.add(mstEdge.b);
 			mstEdge.b.links.add(mstEdge.a);
 		}
+		curRoom.menu = new GameMenu();
+		curRoom.menu.addOption("Dead Squirrel Story", null);
+		curRoom.menu.addOption("By Will Hickey", null);
+		curRoom.menu.addOption("	& Arthur Berman", null);
+		curRoom.menu.addOption("Music by Thomas Colgrove", null);
 	}
 
 	public static double distance(Rect a, Rect b) {
