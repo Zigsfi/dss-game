@@ -191,6 +191,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			canvas.drawBitmap(room, 0, 0, paint);
 			monster.draw(canvas);
 			player.draw(canvas);
+
 			paint.setARGB(255, 255, 0, 0);
 			canvas.drawText("HP: " + player.getHp(), 850 * scaleX, 100 * scaleY, paint);
 
