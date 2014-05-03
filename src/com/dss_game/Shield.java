@@ -83,7 +83,7 @@ public class Shield implements Weapon {
 					Engine.message = "Lowered shield: Defence down " + defence;
 					return;
 				}
-			}, 1000*10);
+			}, 1000*5);
 			
 			return 100;
 			
