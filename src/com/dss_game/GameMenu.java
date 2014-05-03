@@ -39,7 +39,7 @@ public class GameMenu {
 	
 	public Action click(int x, int y) {
 		if (y < 0) return null;
-		int i = y / 70;
+		int i = (int)( (y / 70) * Engine.scaleY);
 		System.out.println(i);
 
 		if (i < menu.size() && i >= 0) {
