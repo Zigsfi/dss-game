@@ -20,7 +20,8 @@ public class Enemy implements Monster, Stats {
 	int Hp, Mp, Str, Def, Dex, IQ;
 	
 	int readiness = 200;
-	int sAttack = 400; 
+	int sAttack = 400;
+	private int hit; 
 	public Enemy() {
 		x = 900;
 		y = 500;
@@ -38,16 +39,17 @@ public class Enemy implements Monster, Stats {
 		Options options = new BitmapFactory.Options();
 		options.inScaled = false;
 		normImage = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster, options),(int)( 240 * Engine.scaleX), (int)(360 * Engine.scaleY), false);
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.imp, options),(int)( 240 * Engine.scaleX), (int)(360 * Engine.scaleY), false);
 		hitImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
 		missImage = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.imp, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
 		image = normImage;
 	}
 
 	@Override
 	public void draw(Canvas c) {
+		x += (hit > 0 ? ((hit-- % 4) - 2) * 3 : 0);
 		c.drawBitmap(image, (int) (Engine.scaleX * x), (int)(Engine.scaleY * y), engine.paint);
 	}
 
@@ -219,7 +221,7 @@ public class Enemy implements Monster, Stats {
 	public void take_dmg(int dmg) {
 		changeHp((dmg+Def));
 		System.out.println( String.format("Deamon HP: %d", Hp));
-		
+		hit = 15;
 	}
 
 	@Override

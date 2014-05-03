@@ -66,7 +66,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		scaleY = (float)display.getHeight() / 1200.0f;
 		player = new Player(this);
 		mainMenu = new GameMenu();
-		
+
 		message = "";
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
@@ -82,28 +82,41 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 			public void run() {
 				//initFight("");
-				Dungeon dungeon = new Dungeon(engine);
-				startRoom = dungeon.curRoom;
-				if (dungeon.curRoom.x > 1920 * scaleX) {
-					dungeonX -= (int)(dungeon.curRoom.x - 1920 * scaleX);
-				}
-				if (dungeon.curRoom.y > 1200 * scaleY) {
-					dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
-				}
-				while (player.getHp() > 0) {
-					handleDungeonInput(dungeon);
-					dungeonPaint(dungeon, startRoom);
+				while (true) {
+					Dungeon dungeon = new Dungeon(engine);
+					startRoom = dungeon.curRoom;
+					if (dungeon.curRoom.x > 1920 * scaleX) {
+						dungeonX -= (int)(dungeon.curRoom.x - 1920 * scaleX);
+					}
+					if (dungeon.curRoom.y > 1200 * scaleY) {
+						dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
+					}
+					while (player.getHp() > 0) {
+						handleDungeonInput(dungeon);
+						dungeonPaint(dungeon, startRoom);
+						try {
+							sleep(5);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					try {
-						sleep(5);
+						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					player = new Player(engine);
+					mainMenu = new GameMenu();
+
+					message = "New Game";
 				}
 			}
 		}.start();
+
 	}
-	
+
 	public void dungeonPaint(Dungeon dungeon, Room startRoom) {
 		Canvas c = surfaceholder.lockCanvas();
 		if (c!=null) {
@@ -119,7 +132,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			surfaceholder.unlockCanvasAndPost(c);
 		}
 	}
-	
+
 	public void handleDungeonInput(Dungeon dungeon) {
 		if (click) {
 			if (y < scaleY * player.menuHeight && x > 1920 * scaleX - 800 * scaleX) {
@@ -159,7 +172,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = r.monster;
 		monster.init(this);
-		while (fighting) {
+		while (fighting && player.getHp() > 0) {
 			update();
 			repaint();
 			try {
@@ -168,7 +181,9 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				e.printStackTrace();
 			}
 		}
-		message = "Victory";
+		fighting = false;
+
+		message = (player.getHp() > 0 ? "Victory" : "Defeat");
 	}
 	public void update() {
 		handleInput();
@@ -221,7 +236,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			canvas.drawText("HP: " + player.getHp(), 1650 * scaleX, 100 * scaleY, paint);
 			paint.setARGB(255, 255, 255, 255);
 			canvas.drawText(Engine.message, (960 * scaleX) - paint.measureText(message)/2, 100 * scaleY, paint);
-			
+
 
 		} catch (Exception e) {
 			//	e.printStackTrace();
