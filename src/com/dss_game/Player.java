@@ -1,5 +1,7 @@
 package com.dss_game;
 
+import java.util.ArrayList;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +17,16 @@ public class Player implements Stats {
 	int Dex;
 	int IQ /*Intellect*/;
 	int Exp;
+	
+	public ArrayList<Weapon> inventoryWeapons;
+	public ArrayList<Armor> inventoryArmor;
+	private GameMenu mainMenu;
+	private GameMenu weaponMenu;
+	private GameMenu armorMenu;
+	public int menuHeight;
+	
+	public GameMenu menu;
+	
 
 	public Player(Engine e) {
 		engine = e;
@@ -27,6 +39,16 @@ public class Player implements Stats {
 		Def = 10; /* + shiedStats*/
 		Dex = 10; /* + armorStats - shieldStats*/
 		IQ = 10; /* + rightStats*/
+		inventoryWeapons = new ArrayList<Weapon>();
+		inventoryArmor = new ArrayList<Armor>();
+		inventoryWeapons.add(right);
+		inventoryWeapons.add(left);
+		inventoryArmor.add(middle);
+		mainMenu = new GameMenu();
+		mainMenu.addOption("Change Weapons", new SwitchtoWeaponInventory());
+		mainMenu.addOption("Change Armor", null);
+		menu = mainMenu;
+		menuHeight =300;
 
 	}
 
@@ -187,7 +209,40 @@ public class Player implements Stats {
 		
 	}
 	
+	private class SwitchtoWeaponInventory implements Action {
+
+		@Override
+		public int execute() {
+			// TODO Auto-generated method stub
+			menu = new GameMenu();
+			menu.addOption("Back", new SwitchBack(mainMenu));
+			menuHeight = (int)(1200 * Engine.scaleY);
+			return 0;
+		}
+		
+	}
+	private class SwitchBack implements Action {
+		GameMenu themenu;
+		public SwitchBack(GameMenu g) {
+			themenu = g;
+		}
+		
+		public int execute() {
+			menu = themenu;
+			menuHeight = 300;
+			return 0;
+		}
+	}
 	
+	private class SwitchWeapon implements Action {
+
+		@Override
+		public int execute() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+	}
 	
 	
 }

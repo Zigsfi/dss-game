@@ -89,20 +89,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
 				}
 				while (player.getHp() > 0) {
-					if (click) {
-						dungeon.tapped(x, y, dungeonX, dungeonY);
-						click = false;
-					}
-					Canvas c = surfaceholder.lockCanvas();
-					if (c!=null) {
-						paint.setARGB(255,0,0,0);
-						c.drawRect(0, 0, (int) (1920 * scaleX), (int)(1200 * scaleY), paint);
-
-						c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
-						c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
-
-						surfaceholder.unlockCanvasAndPost(c);
-					}
+					handleDungeonInput(dungeon);
+					dungeonPaint(dungeon, startRoom);
 					try {
 						sleep(5);
 					} catch (InterruptedException e) {
@@ -112,6 +100,31 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				}
 			}
 		}.start();
+	}
+	
+	public void dungeonPaint(Dungeon dungeon, Room startRoom) {
+		Canvas c = surfaceholder.lockCanvas();
+		if (c!=null) {
+			paint.setARGB(255,0,0,0);
+			c.drawRect(0, 0, (int) (1920 * scaleX), (int)(1200 * scaleY), paint);
+
+			c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
+			c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
+			c.drawBitmap(player.menu.render((int)(800 * scaleX),(int)( player.menuHeight * scaleY), paint), 1920*scaleX - 800 * scaleY, 0, paint);
+			surfaceholder.unlockCanvasAndPost(c);
+		}
+	}
+	
+	public void handleDungeonInput(Dungeon dungeon) {
+		if (click) {
+			if (y < scaleY * player.menuHeight && x > 1920 * scaleX - 800 * scaleX) {
+				Action a = player.menu.click(x, y);
+				if (a != null)
+					a.execute();
+			}
+			dungeon.tapped(x, y, dungeonX, dungeonY);
+			click = false;
+		}
 	}
 	public void initFight(Room r) {
 		paint.setARGB(255, 0, 0, 0);
@@ -220,8 +233,10 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		case (MotionEvent.ACTION_MOVE) :
 			int ox=(int)event.getRawX();
 		int oy=(int)event.getRawY();
-		dungeonX -= x - ox;
-		dungeonY -= y - oy;
+		if (!fighting) {
+			dungeonX -= x - ox;
+			dungeonY -= y - oy;
+		}
 		y = oy;
 		x = ox;
 		return true;
