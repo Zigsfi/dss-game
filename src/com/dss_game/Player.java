@@ -44,6 +44,7 @@ public class Player implements Stats {
 		inventoryWeapons.add(right);
 		inventoryWeapons.add(left);
 		inventoryArmor.add(middle);
+		inventoryWeapons.add(new BattleAxe(e));
 		mainMenu = new GameMenu();
 		mainMenu.addOption("Change Weapons", new SwitchtoWeaponInventory());
 		mainMenu.addOption("Change Armor", null);
@@ -59,7 +60,7 @@ public class Player implements Stats {
 	}
 
 	public void draw (Canvas c) {
-		c.drawBitmap(right.image(), (int)(1280 * Engine.scaleX), (int)((800+right.readiness()) * Engine.scaleY), engine.paint);
+		c.drawBitmap(right.image(), (int)(1280 * Engine.scaleX), (int)((600+right.readiness()) * Engine.scaleY), engine.paint);
 		c.drawBitmap(left.image(), (int)(300 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
 		int left_x, left_y, right_x, right_y, mid_x, mid_y;
 		left_x = (int)(200 * Engine.scaleX);
@@ -217,6 +218,7 @@ public class Player implements Stats {
 			menu = new GameMenu();
 			menu.addOption("Back", new SwitchBack(mainMenu));
 			menu.addOption("Left", new SwitchWeaponInventory(menu, 0));
+			menu.addOption("Right", new SwitchWeaponInventory(menu, 1));
 			//menuHeight = (int)(1200 * Engine.scaleY);
 			return 0;
 		}
@@ -270,6 +272,8 @@ public class Player implements Stats {
 				left = weapon;
 			if (hand == 1)
 				right = weapon;
+			menuHeight = 400;
+			menu = mainMenu;
 			// TODO Auto-generated method stub
 			return 0;
 		}
