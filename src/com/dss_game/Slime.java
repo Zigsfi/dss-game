@@ -96,7 +96,7 @@ public class Slime extends Enemy {
 		}
 		//attack the player
 		Engine.player.changeHp(-1 * damage);
-		Engine.message = "Slim spits for " + damage;
+		Engine.message = "Slime spits for " + damage;
 		image = hitImage;
 		Timer def_T = new Timer();
 		def_T.schedule(new TimerTask() {
