@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 
-public class T_shirt implements Armor{
+public class PlateArmor implements Armor{
 	int readiness=0;
 	GameMenu menu;
 	//TODO give this T-shirt states
@@ -21,10 +21,10 @@ public class T_shirt implements Armor{
 	private int menuY;
 	Engine engine;	
 	
-	public T_shirt (Engine e){
+	public PlateArmor (Engine e){
 		engine = e;
 		menu = new GameMenu();
-		menu.addOption("Hulk Rip", new HulkRip());
+		menu.addOption("Steel Yourself", new HulkRip());
 		//menu.addOption("Stab", new Stab());
 	}
 
@@ -62,14 +62,14 @@ public class T_shirt implements Armor{
 		@Override
 		public int execute() {
 			// TODO polish up and see if this how we want to do this
-			engine.player.changeStr( 3);
-			Engine.message = "Ripped shirt: Strength up " + 3;
+			engine.player.changeDef( 3);
+			Engine.message = "Steeled Yourself: Defense up " + 3;
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					engine.player.changeStr((-3));
-					Engine.message = "New T-shirt: Strength down " + 3;
+					engine.player.changeDef((-3));
+					Engine.message = "Defense down " + 3;
 					
 					return;
 				}
@@ -78,11 +78,12 @@ public class T_shirt implements Armor{
 			return 200;
 		}
 	}
-	public String name() {
-		return "T-Shirt";
+	
+	public int defense() {
+		return 3;
 	}
-	public int defense () {
-		return 1;
+	public String name() {
+		return "Plate Armor";
 	}
 
 	@Override

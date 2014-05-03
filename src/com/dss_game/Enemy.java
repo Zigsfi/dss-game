@@ -87,7 +87,7 @@ public class Enemy implements Monster, Stats {
 				}else {
 					//attack the player
 					Engine.player.changeHp(-1 * damage);
-					Engine.message = "Enemey attacks for " + damage;
+					Engine.message = "Enemy attacks for " + damage;
 					image = hitImage;
 					Timer def_T = new Timer();
 					def_T.schedule(new TimerTask() {
