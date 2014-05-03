@@ -25,6 +25,8 @@ public class Enemy implements Monster, Stats {
 		Mp = 10;
 		Str = 20;
 		Def = 3;
+		Dex = 5;
+		IQ = 5;
 	}
 
 	@Override

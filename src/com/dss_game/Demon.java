@@ -15,6 +15,7 @@ public class Demon implements Monster, Stats {
 	Bitmap image;
 	Bitmap hitImage;
 	Bitmap normImage;
+	Bitmap missImage;
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
 	int readiness = 200;
@@ -25,6 +26,8 @@ public class Demon implements Monster, Stats {
 		Mp = 10;
 		Str = 20;
 		Def = 3;
+		Dex = 5;
+		IQ = 5;
 	}
 
 	@Override
@@ -36,6 +39,8 @@ public class Demon implements Monster, Stats {
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.imp, options),(int)( 240 * Engine.scaleX), (int)(360 * Engine.scaleY), false);
 		hitImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
+		missImage = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.imp, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
 		image = normImage;
 	}
 
@@ -52,21 +57,41 @@ public class Demon implements Monster, Stats {
 		if(readiness <= 0){
 			int damage = Str - Engine.player.getDef();
 			if(damage <= 0) {
-				damage = 0;
+				damage = 1;
 			}
-			Engine.player.changeHp(-1 * damage);
-			Engine.message = "Demon cut";
-			image = hitImage;
-			Timer def_T = new Timer();
-			def_T.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					image = normImage;
-					Engine.message = "";
-					return;
-				}
-			}, 750);
-			readiness = 200;
+			//check dex hit chance
+			int pdex = Engine.player.getDex();
+			int mydex = ((int)(Math.random() * pdex)) + Dex;
+			
+			if (pdex - mydex >= 0) {
+				Engine.message = "Demon missed";
+				image = missImage;
+				Timer def_T = new Timer();
+				def_T.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						image = normImage;
+						Engine.message = "";
+						return;
+					}
+				}, 500);
+				readiness = 200;
+			}
+			else {
+				Engine.player.changeHp(-1 * damage);
+				Engine.message = "Demon cut did " + damage;
+				image = hitImage;
+				Timer def_T = new Timer();
+				def_T.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						image = normImage;
+						Engine.message = "";
+						return;
+					}
+				}, 750);
+				readiness = 200;
+			}
 		}
 		readiness--;
 		

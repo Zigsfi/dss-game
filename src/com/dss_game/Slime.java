@@ -18,6 +18,8 @@ public class Slime extends Enemy {
 		Mp = 10;
 		Str = 20;
 		Def = 10;
+		Dex = 2;
+		IQ = 5;
 	}
 	
 	@Override

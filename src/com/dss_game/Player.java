@@ -145,36 +145,40 @@ public class Player implements Stats {
 	@Override
 	public int getDex() {
 		// TODO Auto-generated method stub
-		return 0;
+		return Dex;
 	}
 
 	@Override
 	public void setDex(int curDex) {
 		// TODO Auto-generated method stub
+		Dex = curDex;
 
 	}
 
 	@Override
 	public void changeDex(int addDex) {
 		// TODO Auto-generated method stub
+		Dex = Dex + addDex;
 
 	}
 
 	@Override
 	public int getInt() {
 		// TODO Auto-generated method stub
-		return 0;
+		return IQ;
 	}
 
 	@Override
 	public void setInt(int curInt) {
 		// TODO Auto-generated method stub
+		IQ = curInt;
 
 	}
 
 	@Override
 	public void changeInt(int addInt) {
 		// TODO Auto-generated method stub
+		IQ = IQ + addInt;
 
 	}
 
