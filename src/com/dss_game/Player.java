@@ -48,7 +48,7 @@ public class Player implements Stats {
 		mainMenu.addOption("Change Weapons", new SwitchtoWeaponInventory());
 		mainMenu.addOption("Change Armor", null);
 		menu = mainMenu;
-		menuHeight =300;
+		menuHeight = 300;
 
 	}
 
@@ -235,7 +235,10 @@ public class Player implements Stats {
 	}
 	
 	private class SwitchWeapon implements Action {
-
+		public Weapon weapon;
+		public SwitchWeapon (Weapon w) {
+			weapon = w;
+		}
 		@Override
 		public int execute() {
 			// TODO Auto-generated method stub

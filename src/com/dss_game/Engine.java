@@ -43,7 +43,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	public static float scaleY;
 	public int dungeonX = 0, dungeonY = 0;
 	public static String message;
-	boolean fighting = true;
+	boolean fighting = false;
 	public GameMenu mainMenu;
 	public static float scaleX() {
 		return scaleX;
