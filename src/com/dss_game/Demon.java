@@ -19,6 +19,7 @@ public class Demon implements Monster, Stats {
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
 	int readiness = 200;
+	int sAttack = 400;
 	public Demon() {
 		x = 900;
 		y = 500;
@@ -54,7 +55,11 @@ public class Demon implements Monster, Stats {
 		if (Hp <= 0){
 			death();
 		}
-		if(readiness <= 0){
+		if(sAttack <= 0){
+			hardHit();
+			sAttack = 700;
+			readiness = 200;
+		}else if(readiness <= 0){
 			int damage = Str - Engine.player.getDef();
 			if(damage <= 0) {
 				damage = 1;
@@ -94,6 +99,7 @@ public class Demon implements Monster, Stats {
 			}
 		}
 		readiness--;
+		sAttack--;
 		
 	}
 
@@ -218,8 +224,26 @@ public class Demon implements Monster, Stats {
 		// TODO Auto-generated method stub
 		Hp = 0;
 		
-		
-		
+	}
+	
+	public void hardHit() {
+		int damage = Str - Engine.player.getDef() + 5;
+		if(damage <= 0) {
+			damage = 1;
+		}
+		//attack the player
+		Engine.player.changeHp(-1 * damage);
+		Engine.message = "Demon bits for " + damage;
+		image = hitImage;
+		Timer def_T = new Timer();
+		def_T.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				image = normImage;
+				Engine.message = "";
+				return;
+			}
+		}, 750);
 	}
 
 }
