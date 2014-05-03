@@ -216,7 +216,8 @@ public class Player implements Stats {
 			// TODO Auto-generated method stub
 			menu = new GameMenu();
 			menu.addOption("Back", new SwitchBack(mainMenu));
-			menuHeight = (int)(1200 * Engine.scaleY);
+			menu.addOption("Left", new SwitchWeaponInventory(menu, 0));
+			//menuHeight = (int)(1200 * Engine.scaleY);
 			return 0;
 		}
 		
@@ -234,13 +235,41 @@ public class Player implements Stats {
 		}
 	}
 	
-	private class SwitchWeapon implements Action {
-		public Weapon weapon;
-		public SwitchWeapon (Weapon w) {
-			weapon = w;
+	private class SwitchWeaponInventory implements Action {
+		private int hand;
+		GameMenu gm;
+		public SwitchWeaponInventory(GameMenu g, int h) {
+			hand = h;
+			gm = g;
+
 		}
 		@Override
 		public int execute() {
+			menu = new GameMenu();
+			menu.addOption("back", new SwitchBack(gm));
+			for (int i = 0; i < inventoryWeapons.size(); i++) {
+				if (inventoryWeapons.get(i) != left && inventoryWeapons.get(i) != right)
+					menu.addOption(inventoryWeapons.get(i).name(), new SwitchWeapon(inventoryWeapons.get(i), hand));
+			}
+			menuHeight = (int)(1200 * Engine.scaleY);
+			// TODO Auto-generated method stub
+			return 0;
+		}
+	}
+	
+	private class SwitchWeapon implements Action {
+		public Weapon weapon;
+		int hand;
+		public SwitchWeapon (Weapon w, int h) {
+			weapon = w;
+			hand = h;
+		}
+		@Override
+		public int execute() {
+			if (hand == 0)
+				left = weapon;
+			if (hand == 1)
+				right = weapon;
 			// TODO Auto-generated method stub
 			return 0;
 		}
