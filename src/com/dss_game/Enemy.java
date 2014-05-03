@@ -58,7 +58,7 @@ public class Enemy implements Monster, Stats {
 		}
 		if(sAttack <= 0){
 			hardHit();
-			sAttack = 700;
+			//sAttack = 700;
 			readiness = 200;
 		}else if(readiness <= 0){
 			int damage = Str - Engine.player.getDef();
@@ -70,7 +70,7 @@ public class Enemy implements Monster, Stats {
 				int mydex = ((int)(Math.random() * pdex)) + Dex;
 				
 				if (pdex - mydex >= 0) {
-					Engine.message = "Demon missed";
+					Engine.message = "Enemy missed";
 					image = missImage;
 					Timer def_T = new Timer();
 					def_T.schedule(new TimerTask() {
@@ -247,6 +247,7 @@ public class Enemy implements Monster, Stats {
 				return;
 			}
 		}, 750);
+		sAttack = 700;
 	}
 
 }

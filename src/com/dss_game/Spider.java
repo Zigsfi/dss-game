@@ -1,5 +1,8 @@
 package com.dss_game;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -20,4 +23,29 @@ public class Spider extends Enemy {
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.spider, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
 		image = normImage;
 	}
+	
+	@Override
+	public void hardHit() {
+		int webworks = (int) Engine.player.getDex() / 2;
+		if(Engine.player.getDex() <= 0) {
+			webworks = 0;
+		}
+		//attack the player
+		Engine.player.changeDex(-1 * webworks);
+		Engine.message = "Spider webs you: Dex down " + webworks;
+		image = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);;
+		Timer def_T = new Timer();
+		def_T.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				image = normImage;
+				Engine.player.changeDex((int) Engine.player.getDex() * 2);
+				Engine.message = "";
+				return;
+			}
+		}, 1500);
+		sAttack = 2000 - (int)(Math.random() * 1000);
+	}
+
 }
