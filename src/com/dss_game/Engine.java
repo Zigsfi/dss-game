@@ -172,6 +172,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				BitmapFactory.decodeResource(getResources(), R.drawable.room), display.getWidth(), display.getHeight(), false);
 		monster = r.monster;
 		monster.init(this);
+		click = false;
 		while (fighting && player.getHp() > 0) {
 			update();
 			repaint();

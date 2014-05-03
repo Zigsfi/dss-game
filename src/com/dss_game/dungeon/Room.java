@@ -11,6 +11,7 @@ import com.dss_game.GameMenu;
 import com.dss_game.HealingSpell;
 import com.dss_game.Monster;
 import com.dss_game.Engine;
+import com.dss_game.PlateArmor;
 import com.dss_game.Slime;
 import com.dss_game.Spider;
 import com.dss_game.Ghost;
@@ -69,8 +70,8 @@ public class Room {
 		public int execute() {
 			// TODO Auto-generated method stub
 			if (Engine.player != null) {
-				if (rand(10) > 6)
-					switch (rand(4)) {
+				if (rand(10) > 5)
+					switch (rand(6)) {
 					case 0:
 						Engine.message = "Found a Battle Axe";
 						Engine.player.inventoryWeapons.add(new BattleAxe(Engine.player.engine));
@@ -79,8 +80,13 @@ public class Room {
 						Engine.message = "Found a healing spell";
 						Engine.player.inventoryWeapons.add(new HealingSpell(Engine.player.engine));
 						break;
+					case 2:
+						Engine.message = "Found Plate Armor";
+						Engine.player.inventoryArmor.add(new PlateArmor(Engine.player.engine));
+						break;
+						
 					default:
-						Engine.message = "There's nothing here";
+						Engine.message = "Sorry, There's nothing here";
 					}
 				else
 					Engine.message = "There's nothing here";

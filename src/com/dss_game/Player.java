@@ -52,7 +52,7 @@ public class Player implements Stats {
 		inventoryWeapons.add(new BattleAxe(e));
 		mainMenu = new GameMenu();
 		mainMenu.addOption("Change Weapons", new SwitchtoWeaponInventory());
-		mainMenu.addOption("Change Armor", null);
+		mainMenu.addOption("Change Armor", new SwitchArmorInventory());
 		menu = mainMenu;
 		menuHeight = 300;
 
@@ -161,7 +161,7 @@ public class Player implements Stats {
 	@Override
 	public int getDef() {
 		// TODO Auto-generated method stub
-		return Def;
+		return Def + middle.defense();
 	}
 
 	@Override
@@ -231,6 +231,38 @@ public class Player implements Stats {
 		}
 	}
 	
+	private class SwitchArmorInventory implements Action {
+
+		@Override
+		public int execute() {
+			// TODO Auto-generated method stub
+			menu = new GameMenu();
+			menu.addOption("back", new SwitchBack(mainMenu));
+			for (int i = 0; i < inventoryArmor.size(); i++) {
+				if (inventoryArmor.get(i) != middle)
+					menu.addOption(inventoryArmor.get(i).name(), new SwitchArmor(inventoryArmor.get(i)));
+			}
+			menuHeight = (int)(1200 * Engine.scaleY);
+			return 0;
+		}
+		
+	}
+	
+	
+	private class SwitchArmor implements Action {
+		Armor armor;
+		public SwitchArmor(Armor a) {
+			armor = a;
+		}
+
+		@Override
+		public int execute() {
+			middle = armor;
+			menu = mainMenu;
+			// TODO Auto-generated method stub
+			return 0;
+		}
+	}
 	private class SwitchtoWeaponInventory implements Action {
 
 		@Override
