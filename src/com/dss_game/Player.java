@@ -18,6 +18,7 @@ public class Player implements Stats {
 	int Dex;
 	int IQ /*Intellect*/;
 	int Exp;
+	int level;
 	
 	public ArrayList<Weapon> inventoryWeapons;
 	public ArrayList<Armor> inventoryArmor;
@@ -41,6 +42,8 @@ public class Player implements Stats {
 		Def = 10; /* + shiedStats*/
 		Dex = 10; /* + armorStats - shieldStats*/
 		IQ = 10; /* + rightStats*/
+		level = 1;
+		Exp = 0;
 		inventoryWeapons = new ArrayList<Weapon>();
 		inventoryArmor = new ArrayList<Armor>();
 		inventoryWeapons.add(right);
@@ -213,10 +216,19 @@ public class Player implements Stats {
 		IQ = IQ + addInt;
 
 	}
+	public int getLevel(){
+		return level;
+	}
 
 	public void give(int i) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void giveExp( int addexper) {
+		Exp = Exp + addexper;
+		if (Exp >= 100){
+			//(int)(Math.random() * 3)
+		}
 	}
 	
 	private class SwitchtoWeaponInventory implements Action {

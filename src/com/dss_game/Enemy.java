@@ -18,6 +18,7 @@ public class Enemy implements Monster, Stats {
 	Bitmap missImage;
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
+	int exper = 5;
 	
 	int readiness = 200;
 	int sAttack = 400;
@@ -55,9 +56,7 @@ public class Enemy implements Monster, Stats {
 
 	@Override
 	public void update() {
-		if (Hp <= 0){
-			death();
-		}
+		
 		if(sAttack <= 0){
 			hardHit();
 			//sAttack = 700;
@@ -103,6 +102,9 @@ public class Enemy implements Monster, Stats {
 		}
 		readiness--;
 		sAttack--;
+		if (Hp <= 0){
+			death();
+		}
 		
 	}
 
@@ -228,6 +230,7 @@ public class Enemy implements Monster, Stats {
 	public void death() {
 		// TODO Auto-generated method stub
 		Hp = 0;
+		Engine.player.giveExp(exper);
 		
 		
 		}
