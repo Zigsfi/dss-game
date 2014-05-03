@@ -40,7 +40,11 @@ public class Slime extends Enemy {
 		if (Hp <= 0){
 			death();
 		}
-		if(readiness <= 0){
+		if(sAttack <= 0){
+			hardHit();
+			sAttack = 700;
+			readiness = 200;
+		}else if(readiness <= 0){
 			int damage = Str - Engine.player.getDef();
 			if(damage <= 0) {
 				damage = 0;
@@ -81,6 +85,27 @@ public class Slime extends Enemy {
 			}
 		}
 		readiness--;
+		sAttack--;
 		
+	}
+	@Override
+	public void hardHit() {
+		int damage = Str - Engine.player.getDef() + ((int)(Str/2));
+		if(damage <= 0) {
+			damage = 1;
+		}
+		//attack the player
+		Engine.player.changeHp(-1 * damage);
+		Engine.message = "Slim spits for " + damage;
+		image = hitImage;
+		Timer def_T = new Timer();
+		def_T.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				image = normImage;
+				Engine.message = "";
+				return;
+			}
+		}, 750);
 	}
 }

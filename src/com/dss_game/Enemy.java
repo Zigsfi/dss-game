@@ -19,6 +19,7 @@ public class Enemy implements Monster, Stats {
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
 	int readiness = 200;
+	int sAttack = 400; 
 	public Enemy() {
 		x = 900;
 		y = 500;
@@ -52,26 +53,51 @@ public class Enemy implements Monster, Stats {
 		if (Hp <= 0){
 			death();
 		}
-		if(readiness <= 0){
+		if(sAttack <= 0){
+			hardHit();
+			sAttack = 700;
+			readiness = 200;
+		}else if(readiness <= 0){
 			int damage = Str - Engine.player.getDef();
 			if(damage <= 0) {
-				damage = 0;
+				damage = 1;
 			}
-			Engine.player.changeHp(-1 * damage);
-			Engine.message = "Enemey attacks for " + damage;
-			image = hitImage;
-			Timer def_T = new Timer();
-			def_T.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					image = normImage;
-					Engine.message = "";
-					return;
+				//check dex hit chance
+				int pdex = Engine.player.getDex();
+				int mydex = ((int)(Math.random() * pdex)) + Dex;
+				
+				if (pdex - mydex >= 0) {
+					Engine.message = "Demon missed";
+					image = missImage;
+					Timer def_T = new Timer();
+					def_T.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							image = normImage;
+							Engine.message = "";
+							return;
+						}
+					}, 500);
+					readiness = 200;
+				}else {
+					//attack the player
+					Engine.player.changeHp(-1 * damage);
+					Engine.message = "Enemey attacks for " + damage;
+					image = hitImage;
+					Timer def_T = new Timer();
+					def_T.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							image = normImage;
+							Engine.message = "";
+							return;
+						}
+					}, 750);
+					readiness = 200;
 				}
-			}, 750);
-			readiness = 200;
 		}
 		readiness--;
+		sAttack--;
 		
 	}
 
@@ -197,7 +223,25 @@ public class Enemy implements Monster, Stats {
 		Hp = 0;
 		
 		
-		
+		}
+	public void hardHit() {
+		int damage = Str - Engine.player.getDef() + ((int)(Str/2));
+		if(damage <= 0) {
+			damage = 1;
+		}
+		//attack the player
+		Engine.player.changeHp(-1 * damage);
+		Engine.message = "Enemey hits hard for " + damage;
+		image = hitImage;
+		Timer def_T = new Timer();
+		def_T.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				image = normImage;
+				Engine.message = "";
+				return;
+			}
+		}, 750);
 	}
 
 }
