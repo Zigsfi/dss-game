@@ -34,7 +34,7 @@ public class Spider extends Enemy {
 		Engine.player.changeDex(-1 * webworks);
 		Engine.message = "Spider webs you: Dex down " + webworks;
 		image = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);;
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.spiderweb),(int)( 480 * Engine.scaleX), (int)(720 * Engine.scaleY), false);;
 		Timer def_T = new Timer();
 		def_T.schedule(new TimerTask() {
 			@Override
@@ -45,8 +45,8 @@ public class Spider extends Enemy {
 				Engine.message = "Cleared the web: Dex up " + web;
 				return;
 			}
-		}, 3000);
-		sAttack = 3000 - (int)(Math.random() * 1000);
+		}, 4000);
+		sAttack = 2000 - (int)(Math.random() * 1000);
 	}
 
 }
