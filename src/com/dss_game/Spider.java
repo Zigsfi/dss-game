@@ -16,6 +16,8 @@ public class Spider extends Enemy {
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.spider, options),(int)( 480 * Engine.scaleX), (int)(720 * Engine.scaleY), false);
 		hitImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
+		missImage = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.spider, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
 		image = normImage;
 	}
 }

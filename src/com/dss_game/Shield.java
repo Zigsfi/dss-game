@@ -72,14 +72,17 @@ public class Shield implements Weapon {
 		public int execute() {
 			// TODO polish up and see if this how we want to do this
 			engine.player.changeDef( defence);
+			Engine.message = "Raised shield: Defence up " + defence;
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					engine.player.changeDef((-1 * defence));
+					Engine.message = "Lowered shield: Defence down " + defence;
 					return;
 				}
 			}, 1000*10);
+			
 			return 100;
 			
 		}}
@@ -90,6 +93,7 @@ public class Shield implements Weapon {
 		public int execute() {
 			// TODO select an enemy from monster array in engine
 			engine.monster.take_dmg( (-1 * bash_damage));
+			Engine.message = "Bash did " + -(bash_damage + ((Stats)(engine.monster)).getDef()) + " damage.";
 			return 200;
 		}}
 
