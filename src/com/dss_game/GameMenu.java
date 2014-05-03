@@ -31,7 +31,7 @@ public class GameMenu {
 				p.setARGB(255, 255, 255, 0);
 			else
 				p.setARGB(255, 0, 0, 0);
-			c.drawText(menu.get(i).getName(), 10, (i * 70 + 50) * Engine.scaleY, p);
+			c.drawText(menu.get(i).getName(), 10, (i * 80 + 50) * Engine.scaleY, p);
 			//System.out.println(menu.get(i).getName());
 		}
 		return b;
@@ -39,7 +39,7 @@ public class GameMenu {
 	
 	public Action click(int x, int y) {
 		if (y < 0) return null;
-		int i = (int)( (y / (70 * Engine.scaleY)));
+		int i = (int)( (y / (80 * Engine.scaleY)));
 		System.out.println(i);
 
 		if (i < menu.size() && i >= 0) {
