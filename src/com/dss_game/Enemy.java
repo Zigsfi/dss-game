@@ -15,6 +15,7 @@ public class Enemy implements Monster, Stats {
 	Bitmap image;
 	Bitmap hitImage;
 	Bitmap normImage;
+	Bitmap missImage;
 	int x, y;
 	int Hp, Mp, Str, Def, Dex, IQ;
 	int readiness = 200;
@@ -57,7 +58,7 @@ public class Enemy implements Monster, Stats {
 				damage = 0;
 			}
 			Engine.player.changeHp(-1 * damage);
-			Engine.message = "Demon cut";
+			Engine.message = "Enemey attacks for " + damage;
 			image = hitImage;
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
