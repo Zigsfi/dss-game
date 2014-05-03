@@ -65,7 +65,9 @@ public class Shield implements Weapon {
 		System.out.println("Not ready yet");
 		return false;
 	}
-	
+	public String name() {
+		return "Shield";
+	}
 	private class Raise implements Action {
 
 		@Override

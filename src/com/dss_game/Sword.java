@@ -76,7 +76,9 @@ public class Sword implements Weapon {
 		}
 		
 	}
-	
+	public String name() {
+		return "Sword";
+	}
 	private class Slash implements Action {
 
 		@Override

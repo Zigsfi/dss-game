@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 
 public interface Weapon {
+	public String name();
 	public Bitmap image();
 	public int readiness();
 	public void setReadiness(int i);
