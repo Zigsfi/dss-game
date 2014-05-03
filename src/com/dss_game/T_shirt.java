@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 
 
+
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 
@@ -62,11 +63,13 @@ public class T_shirt implements Armor{
 		public int execute() {
 			// TODO polish up and see if this how we want to do this
 			engine.player.changeStr( 3);
+			Engine.message = "Ripped shirt: Strength up " + 3;
 			Timer def_T = new Timer();
 			def_T.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					engine.player.changeStr((-3));
+					Engine.message = "New T-shirt: Strength down " + 3;
 					
 					return;
 				}
