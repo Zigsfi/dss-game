@@ -13,6 +13,9 @@ public class Spider extends Enemy {
 	@Override
 	public void init(Engine e) {
 		this.engine = e;
+		
+		exper = 10;
+		
 		Options options = new BitmapFactory.Options();
 		options.inScaled = false;
 		normImage = Bitmap.createScaledBitmap(

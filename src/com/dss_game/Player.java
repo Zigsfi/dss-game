@@ -18,6 +18,7 @@ public class Player implements Stats {
 	int Dex;
 	int IQ /*Intellect*/;
 	int Exp;
+	int level;
 	
 	public ArrayList<Weapon> inventoryWeapons;
 	public ArrayList<Armor> inventoryArmor;
@@ -41,6 +42,8 @@ public class Player implements Stats {
 		Def = 10; /* + shiedStats*/
 		Dex = 10; /* + armorStats - shieldStats*/
 		IQ = 10; /* + rightStats*/
+		level = 1;
+		Exp = 0;
 		inventoryWeapons = new ArrayList<Weapon>();
 		inventoryArmor = new ArrayList<Armor>();
 		inventoryWeapons.add(right);
@@ -213,10 +216,29 @@ public class Player implements Stats {
 		IQ = IQ + addInt;
 
 	}
+	public int getLevel(){
+		return level;
+	}
 
 	public void give(int i) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void giveExp( int addexper) {
+		Exp = Exp + addexper;
+		if (Exp >= 100){
+			level++;
+			Engine.message= "You Dinged! Level up!";
+			System.out.println( String.format("Current Level: %d", level));
+			Exp = Exp - 100;
+			//random increase to all stats 
+			Hp = Hp + (int)(Math.random() * 5);
+			Mp = Mp + (int)(Math.random() * 5);
+			Str = Str + (int)(Math.random() * 3);
+			Def = Def + (int)(Math.random() * 3);
+			Dex = Dex + (int)(Math.random() * 3);
+			IQ = IQ + (int)(Math.random() * 3);
+		}
 	}
 	
 	private class SwitchArmorInventory implements Action {

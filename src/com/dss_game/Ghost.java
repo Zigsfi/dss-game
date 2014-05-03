@@ -19,6 +19,7 @@ public class Ghost extends Enemy{
 		Def = 3;
 		Dex = 10;
 		IQ = 10;
+		exper = 10;
 		
 		Options options = new BitmapFactory.Options();
 		options.inScaled = false;
