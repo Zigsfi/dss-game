@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import android.graphics.Rect;
 
 import com.dss_game.Action;
+import com.dss_game.BattleAxe;
 import com.dss_game.Demon;
 import com.dss_game.GameMenu;
+import com.dss_game.HealingSpell;
 import com.dss_game.Monster;
 import com.dss_game.Engine;
 import com.dss_game.Slime;
@@ -63,8 +65,21 @@ public class Room {
 		public int execute() {
 			// TODO Auto-generated method stub
 			if (Engine.player != null) {
-				Engine.player.give(0);
-				System.out.println("Loot");
+				if (rand(10) > 6)
+					switch (rand(4)) {
+					case 0:
+						Engine.message = "Found a Battle Axe";
+						Engine.player.inventoryWeapons.add(new BattleAxe(Engine.player.engine));
+						break;
+					case 1:
+						Engine.message = "Found a healing spell";
+						Engine.player.inventoryWeapons.add(new HealingSpell(Engine.player.engine));
+						break;
+					default:
+						Engine.message = "There's nothing here";
+					}
+				else
+					Engine.message = "There's nothing here";
 			}
 			menu = new GameMenu();
 			return 0;

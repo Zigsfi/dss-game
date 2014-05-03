@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 public class Player implements Stats {
-	Engine engine;
+	public Engine engine;
 	Weapon left, right;
 	Armor middle;
 	int Hp;
@@ -24,6 +25,7 @@ public class Player implements Stats {
 	private GameMenu weaponMenu;
 	private GameMenu armorMenu;
 	public int menuHeight;
+	public int bits;
 	
 	public GameMenu menu;
 	
@@ -60,8 +62,15 @@ public class Player implements Stats {
 	}
 
 	public void draw (Canvas c) {
-		c.drawBitmap(right.image(), (int)(1280 * Engine.scaleX), (int)((600+right.readiness()) * Engine.scaleY), engine.paint);
-		c.drawBitmap(left.image(), (int)(300 * Engine.scaleX), (int)((600+left.readiness()) * Engine.scaleY), engine.paint);
+		Matrix m = new Matrix();
+		m.setTranslate(1280 * Engine.scaleX, (600 + right.readiness()) * Engine.scaleY);
+		
+		c.drawBitmap(right.image(), m, engine.paint);
+		m.setTranslate((300 * Engine.scaleX), (600+left.readiness()) * Engine.scaleY);
+		m.setScale(-1, 1);
+		m.postTranslate((300 * Engine.scaleX) + left.image().getWidth(), (600+left.readiness()) * Engine.scaleY);
+
+		c.drawBitmap(left.image(), m, engine.paint);
 		int left_x, left_y, right_x, right_y, mid_x, mid_y;
 		left_x = (int)(200 * Engine.scaleX);
 		left_y = (int)((900+left.readiness()) * Engine.scaleY);
