@@ -13,6 +13,7 @@ import com.dss_game.Monster;
 import com.dss_game.Engine;
 import com.dss_game.Slime;
 import com.dss_game.Spider;
+import com.dss_game.Ghost;
 
 public class Room {
 
@@ -43,6 +44,9 @@ public class Room {
 			break;
 		case 1:
 			monster = new Spider();
+			break;
+		case 2:
+			monster = new Ghost();
 			break;
 		default:
 			monster = new Demon();
