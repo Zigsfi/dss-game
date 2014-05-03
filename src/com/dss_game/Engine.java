@@ -66,6 +66,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		scaleY = (float)display.getHeight() / 1200.0f;
 		player = new Player(this);
 		mainMenu = new GameMenu();
+		
+		message = "";
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
 		System.out.println(Environment.getExternalStorageDirectory()+"/DSS-game/res/drawable-hdpi/room.png");
@@ -111,6 +113,9 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 			c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
 			c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
 			c.drawBitmap(player.menu.render((int)(800 * scaleX),(int)( player.menuHeight * scaleY), paint), 1920*scaleX - (800 * scaleX), 0, paint);
+			paint.setARGB(255, 255, 255, 255);
+			c.drawText(Engine.message, (960 * scaleX) - paint.measureText(message)/2, 1100 * scaleY, paint);
+
 			surfaceholder.unlockCanvasAndPost(c);
 		}
 	}
@@ -163,6 +168,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 				e.printStackTrace();
 			}
 		}
+		message = "Victory";
 	}
 	public void update() {
 		handleInput();
