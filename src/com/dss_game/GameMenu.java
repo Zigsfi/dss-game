@@ -31,7 +31,7 @@ public class GameMenu {
 				p.setARGB(255, 255, 255, 0);
 			else
 				p.setARGB(255, 0, 0, 0);
-			c.drawText(menu.get(i).getName(), 10, i * 70 + 50, p);
+			c.drawText(menu.get(i).getName(), 10, (i * 70 + 50) * Engine.scaleY, p);
 			//System.out.println(menu.get(i).getName());
 		}
 		return b;
