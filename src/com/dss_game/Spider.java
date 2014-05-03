@@ -40,12 +40,13 @@ public class Spider extends Enemy {
 			@Override
 			public void run() {
 				image = normImage;
-				Engine.player.changeDex((int) Engine.player.getDex() * 2);
-				Engine.message = "";
+				int web = (int) Engine.player.getDex() * 2;
+				Engine.player.changeDex(web);
+				Engine.message = "Cleared the web: Dex up " + web;
 				return;
 			}
-		}, 1500);
-		sAttack = 2000 - (int)(Math.random() * 1000);
+		}, 3000);
+		sAttack = 3000 - (int)(Math.random() * 1000);
 	}
 
 }
