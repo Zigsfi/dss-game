@@ -2,6 +2,8 @@ package com.dss_game;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.dss_game.dungeon.Dungeon;
 import com.dss_game.dungeon.Room;
@@ -184,7 +186,16 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		}
 		fighting = false;
 
-		message = (player.getHp() > 0 ? "Victory" : "Defeat");
+		message = (player.getHp() > 0 ? "Victory with " + monster.getExper() +" experiance" : "Defeat");
+		Timer def_T = new Timer();
+		def_T.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				player.giveExp(monster.getExper());
+				return;
+			}
+		}, 750);
+		
 	}
 	public void update() {
 		handleInput();

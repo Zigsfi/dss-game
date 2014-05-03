@@ -157,4 +157,10 @@ public class Troll implements Monster, Stats {
 		
 	}
 
+	@Override
+	public int getExper() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

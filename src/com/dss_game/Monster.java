@@ -8,4 +8,5 @@ public interface Monster {
 	public void update();
 	public void take_dmg(int dmg);
 	public void death();
+	public int getExper();
 }

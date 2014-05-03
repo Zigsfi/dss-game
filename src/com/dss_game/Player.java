@@ -227,7 +227,17 @@ public class Player implements Stats {
 	public void giveExp( int addexper) {
 		Exp = Exp + addexper;
 		if (Exp >= 100){
-			//(int)(Math.random() * 3)
+			level++;
+			Engine.message= "You Dinged! Level up!";
+			System.out.println( String.format("Current Level: %d", level));
+			Exp = Exp - 100;
+			//random increase to all stats 
+			Hp = Hp + (int)(Math.random() * 5);
+			Mp = Mp + (int)(Math.random() * 5);
+			Str = Str + (int)(Math.random() * 3);
+			Def = Def + (int)(Math.random() * 3);
+			Dex = Dex + (int)(Math.random() * 3);
+			IQ = IQ + (int)(Math.random() * 3);
 		}
 	}
 	

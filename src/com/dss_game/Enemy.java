@@ -225,12 +225,18 @@ public class Enemy implements Monster, Stats {
 		System.out.println( String.format("Deamon HP: %d", Hp));
 		hit = 15;
 	}
+	
+	@Override
+	public int getExper(){
+		return exper;
+	}
 
 	@Override
 	public void death() {
 		// TODO Auto-generated method stub
 		Hp = 0;
-		Engine.player.giveExp(exper);
+		//Engine.player.giveExp(exper);
+		//Engine.message = "You got " + exper + " Experiance.";
 		
 		
 		}
