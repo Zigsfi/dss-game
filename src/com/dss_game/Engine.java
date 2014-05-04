@@ -77,7 +77,6 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		mainMenu = new GameMenu();
 		soundId = new int[10];
 		music = MediaPlayer.create(context, R.raw.hero2);
-		music.start();
 		sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 		soundId[0] = sounds.load(context, R.raw.ascending, 1);
 		soundId[1] = sounds.load(context, R.raw.hit, 2);
@@ -99,6 +98,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 			public void run() {
 				//initFight("");
+				music.start();
+
 				while (true) {
 					Dungeon dungeon = new Dungeon(engine);
 					startRoom = dungeon.curRoom;
@@ -144,7 +145,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 			c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
 			c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
-			c.drawBitmap(player.menu.render((int)(800 * scaleX),(int)( player.menuHeight * scaleY), paint), 1920*scaleX - (800 * scaleX), 0, paint);
+			c.drawBitmap(player.menu.render((int)(1800 * scaleX),(int)( player.menuHeight * scaleY), paint), 1920*scaleX - (800 * scaleX), 0, paint);
 			paint.setARGB(255, 128, 128, 128);
 			c.drawText(Engine.message, (960 * scaleX) - paint.measureText(message)/2, 1100 * scaleY, paint);
 
