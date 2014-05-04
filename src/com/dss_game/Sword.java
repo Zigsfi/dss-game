@@ -71,7 +71,7 @@ public class Sword implements Weapon {
 			int damage = -1 * (engine.player.getStr() + attack);
 			
 			int pdex = Engine.player.getDex();
-			int mdex = ((int)(Math.random() * pdex)) + engine.monster.getDex();
+			int mdex = (int)((Math.random() * (pdex / 2))) + engine.monster.getDex();
 			if (pdex - mdex <= 0) {
 				Engine.message = "You missed";
 				
