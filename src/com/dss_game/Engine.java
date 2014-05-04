@@ -105,6 +105,9 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					won = false;
 					
 					music.start();
+					dungeonX = 0;
+					dungeonY = 0;
+					
 
 					Dungeon dungeon = new Dungeon(engine);
 					startRoom = dungeon.curRoom;

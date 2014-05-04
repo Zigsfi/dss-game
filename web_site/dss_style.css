@@ -9,6 +9,9 @@ h1 {
         font-style:italic;
         color: Red;
 }
+h2{
+    color: Blue;
+}
 
 body {
 	
@@ -17,7 +20,7 @@ body {
 	background-repeat:repeat;
     background-size: 150px;
     background-color: Black;
-    color:green;
+    color:White;
 	
 }
 
@@ -42,7 +45,7 @@ div{
         margin-left: 15%;
         margin-right: 15%;
         font-size: 28px;
-        border-color: Green;
+        border-color: Blue;
         border-style: double;
         border-width: 10px;
         -moz-border-radius: 100px;
@@ -85,8 +88,14 @@ p {
         font-family: Helvetica;
         font-size: 18px;
         margin-left: 8%;
+        margin-right: 40%
     }
     
+p1 {
+        font-family: Helvetica;
+        font-size: 18px;
+        margin-left: 8%;
+    }
 #nav_menu{
         font-size: 20px;
         font-weight:bold;
