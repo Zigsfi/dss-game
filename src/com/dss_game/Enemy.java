@@ -223,6 +223,8 @@ public class Enemy implements Monster, Stats {
 	public void take_dmg(int dmg) {
 		changeHp((dmg+Def));
 		System.out.println( String.format("Deamon HP: %d", Hp));
+		Engine.sounds.play(Engine.soundId[1], 0.5f, 0.5f, 1, 0, 2);
+
 		hit = 15;
 	}
 	

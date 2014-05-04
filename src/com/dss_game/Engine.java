@@ -109,7 +109,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					if (dungeon.curRoom.y > 1200 * scaleY) {
 						dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
 					}
-					sounds.play(soundId[1], 0.99f, 0.99f, 50, -1, 1);
+		//			sounds.play(soundId[1], 0.99f, 0.99f, 50, -1, 1);
 
 					while (player.getHp() > 0) {
 						handleDungeonInput(dungeon);
