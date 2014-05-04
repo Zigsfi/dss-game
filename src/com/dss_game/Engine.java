@@ -145,7 +145,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 			c.drawBitmap(dungeon.render(), dungeonX, dungeonY, paint);
 			c.drawBitmap(dungeon.curRoom.getMenu().render((dungeon.curRoom == startRoom ? 800 : 400), 400, paint), 0, 0, paint);
-			c.drawBitmap(player.menu.render((int)(1800 * scaleX),(int)( player.menuHeight * scaleY), paint), 1920*scaleX - (800 * scaleX), 0, paint);
+			c.drawBitmap(player.menu.render((int)(1800),(int)( player.menuHeight), paint), 1920 - (800), 0, paint);
 			paint.setARGB(255, 128, 128, 128);
 			c.drawText(Engine.message, (960 * scaleX) - paint.measureText(message)/2, 1100 * scaleY, paint);
 
