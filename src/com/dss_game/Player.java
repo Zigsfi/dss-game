@@ -53,6 +53,7 @@ public class Player implements Stats {
 		mainMenu = new GameMenu();
 		mainMenu.addOption("Change Weapons", new SwitchtoWeaponInventory());
 		mainMenu.addOption("Change Armor", new SwitchArmorInventory());
+		mainMenu.addOption("Character Stats", new CharStats());
 		menu = mainMenu;
 		menuHeight = 300;
 
@@ -237,7 +238,7 @@ public class Player implements Stats {
 		Exp = Exp + addexper;
 		if (Exp >= 100){
 			level++;
-			Engine.message= "You Dinged! Level up!";
+			Engine.message= "Level up!";
 			System.out.println( String.format("Current Level: %d", level));
 			Exp = Exp - 100;
 			//random increase to all stats 
@@ -351,6 +352,23 @@ public class Player implements Stats {
 		}
 		
 	}
-	
+	private class CharStats implements Action {
+
+		@Override
+		public int execute() {
+			menu = new GameMenu();
+			menuHeight = (int) (800);
+			menu.addOption("Back", new SwitchBack(mainMenu));
+			// TODO Auto-generated method stub
+			menu.addOption("Health: " + getHp(), null);
+			menu.addOption("Strength: " + getStr(), null);
+			menu.addOption("Dexterity: " + getDex(), null);
+			menu.addOption("Defense: " + getDef(), null);
+			
+			menu.addOption("Intelligence: " + getInt(), null);
+			return 0;
+		}
+		
+	}
 	
 }
