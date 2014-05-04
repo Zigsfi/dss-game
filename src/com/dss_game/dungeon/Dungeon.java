@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import com.dss_game.DeadSquirrel;
 import com.dss_game.Engine;
 import com.dss_game.GameMenu;
 
@@ -22,7 +23,7 @@ public class Dungeon {
 	public boolean matrix[][];
 	public Edge[] edges;
 	public LinkedList<Edge> mst;
-	public Room curRoom;
+	public Room curRoom, bossRoom=null;
 	Bitmap b;
 	Engine engine;
 	public Dungeon(Engine e) {
@@ -51,6 +52,9 @@ public class Dungeon {
 				rooms.add(r);
 				if (r.drawrec.right < 1920 * Engine.scaleX && r.drawrec.top < 1200 * Engine.scaleY)
 					curRoom = r;
+				else {
+					bossRoom = r;
+				}
 				roomIt = rooms.listIterator();
 				while (roomIt.hasNext()) {
 					Room room = roomIt.next();
@@ -95,9 +99,9 @@ public class Dungeon {
 		curRoom.menu = new GameMenu();
 		curRoom.menu.addOption("Dead Squirrel Story", null);
 		curRoom.menu.addOption("By Will Hickey", null);
-		curRoom.menu.addOption("	& Arthur Berman", null);
+		curRoom.menu.addOption("& Arthur Berman", null);
 		curRoom.menu.addOption("Music by Thomas Colgrove", null);
-		
+		bossRoom.monster = new DeadSquirrel();
 	}
 
 	public static double distance(Rect a, Rect b) {
@@ -121,6 +125,10 @@ public class Dungeon {
 				if (r.links.indexOf(curRoom) != -1 || r.visited) {
 					curRoom = r;
 					if (!r.visited) {
+						if (r == bossRoom) {
+							engine.music.stop();
+							engine.boss.start();
+						}
 						engine.initFight(r);
 						
 						for (int i = 0; i < 25; i++) {
@@ -164,6 +172,16 @@ public class Dungeon {
 			}
 			if (r.links.indexOf(curRoom) != -1) {
 				p.setARGB(255, 255, 0, 0);
+			}
+			if (r == bossRoom) {
+				p.setARGB(255, 255, 0, 255);
+				c.drawRect(r.drawrec, p);
+				p.setARGB(255, 0, 0, 0);
+				c.drawLine(r.drawrec.left, r.drawrec.top, r.drawrec.left + r.drawrec.width(), r.drawrec.top, p);
+				c.drawLine(r.drawrec.left + r.drawrec.width(), r.drawrec.top, r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
+				c.drawLine(r.drawrec.left, r.drawrec.top + r.drawrec.height(), r.drawrec.left + r.drawrec.width(), r.drawrec.top + r.drawrec.height(), p);
+				c.drawLine(r.drawrec.right, r.drawrec.top, r.drawrec.right, r.drawrec.bottom, p);
+
 			}
 			if (r.visited) {
 				c.drawRect(r.drawrec, p);
