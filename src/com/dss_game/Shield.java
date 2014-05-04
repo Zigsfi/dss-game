@@ -97,7 +97,7 @@ public class Shield implements Weapon {
 		public int execute() {
 			// TODO select an enemy from monster array in engine
 			int pdex = Engine.player.getDex();
-			int mdex = ((int)(Math.random() * pdex)) + engine.monster.getDex();
+			int mdex = (int)((Math.random() * (pdex / 2))) + engine.monster.getDex();
 			
 			if (pdex - mdex <= 0) {
 				Engine.message = "You missed";

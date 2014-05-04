@@ -70,7 +70,7 @@ public class BattleAxe implements Weapon {
 			// TODO select an enemy from monster array in engine
 			int damage = -1 * (engine.player.getStr() + attack);
 			int pdex = Engine.player.getDex();
-			int mdex = ((int)(Math.random() * pdex)) + engine.monster.getDex();
+			int mdex = (int)((Math.random() * (pdex / 2))) + engine.monster.getDex();
 			
 			if (pdex - mdex <= 0) {
 				Engine.message = "You missed";
@@ -92,7 +92,7 @@ public class BattleAxe implements Weapon {
 			// TODO select an enemy from monster array in engine
 			int damage =  (int)(-0.5 * (engine.player.getStr() + attack));
 			int pdex = Engine.player.getDex();
-			int mdex = ((int)(Math.random() * pdex)) + engine.monster.getDex();
+			int mdex = (int)((Math.random() * (pdex / 2))) + engine.monster.getDex();
 			
 			if (pdex - mdex <= 0) {
 				Engine.message = "You missed";
