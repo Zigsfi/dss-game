@@ -57,7 +57,7 @@ public class T_shirt implements Armor{
 		System.out.println("Not ready yet");
 		return false;
 	}
-	
+	 
 	private class HulkRip implements Action {
 		@Override
 		public int execute() {

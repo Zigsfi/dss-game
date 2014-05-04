@@ -72,6 +72,7 @@ public class Shield implements Weapon {
 
 		@Override
 		public int execute() {
+			Player.shielding = true;
 			// TODO polish up and see if this how we want to do this
 			engine.player.changeDef( defence);
 			Engine.message = "Raised shield: Defence up " + defence;
@@ -81,6 +82,7 @@ public class Shield implements Weapon {
 				public void run() {
 					engine.player.changeDef((-1 * defence));
 					Engine.message = "Lowered shield: Defence down " + defence;
+					Player.shielding = false;
 					return;
 				}
 			}, 1000*5);

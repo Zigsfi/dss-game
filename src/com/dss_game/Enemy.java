@@ -236,6 +236,7 @@ public class Enemy implements Monster, Stats {
 		// TODO Auto-generated method stub
 		Hp = 0;
 		//Engine.player.giveExp(exper);
+		Engine.sounds.play(Engine.soundId[2], 0.5f, 0.5f, 1, 0, 1);
 		//Engine.message = "You got " + exper + " Experiance.";
 		
 		

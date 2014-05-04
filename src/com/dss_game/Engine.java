@@ -9,6 +9,7 @@ import com.dss_game.dungeon.Dungeon;
 import com.dss_game.dungeon.Room;
 import com.example.dss_game.R;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -20,6 +21,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Environment;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
@@ -47,6 +51,9 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	public static String message;
 	boolean fighting = false;
 	public GameMenu mainMenu;
+	public static SoundPool sounds;
+	public static int soundId[];
+	MediaPlayer music;
 	public static float scaleX() {
 		return scaleX;
 	}
@@ -68,7 +75,15 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		scaleY = (float)display.getHeight() / 1200.0f;
 		player = new Player(this);
 		mainMenu = new GameMenu();
-
+		soundId = new int[10];
+		music = MediaPlayer.create(context, R.raw.hero2);
+		music.start();
+		sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundId[0] = sounds.load(context, R.raw.ascending, 1);
+		soundId[1] = sounds.load(context, R.raw.hit, 2);
+		soundId[2] = sounds.load(context, R.raw.crumble, 2);
+		soundId[3] = sounds.load(context, R.raw.impact, 2);
+	//	sounds.play(soundId[0], 0.5f, 0.5f, 1, -1, 1);
 		message = "";
 
 		//room = BitmapFactory.decodeFile(System.getProperty("user.id")+"/res/drawable-hdpi/room.png");
@@ -93,6 +108,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					if (dungeon.curRoom.y > 1200 * scaleY) {
 						dungeonY -= (int)(dungeon.curRoom.y - 1200 * scaleY);
 					}
+					sounds.play(soundId[1], 0.99f, 0.99f, 50, -1, 1);
+
 					while (player.getHp() > 0) {
 						handleDungeonInput(dungeon);
 						dungeonPaint(dungeon, startRoom);

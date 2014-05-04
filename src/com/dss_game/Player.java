@@ -27,7 +27,7 @@ public class Player implements Stats {
 	private GameMenu armorMenu;
 	public int menuHeight;
 	public int bits;
-	
+	public static boolean shielding = false;
 	public GameMenu menu;
 	
 
@@ -118,6 +118,14 @@ public class Player implements Stats {
 	@Override
 	public void changeHp(int addHp) {
 		Hp = Hp + addHp;
+		if (addHp < 0) {
+			if (shielding) 
+				Engine.sounds.play(Engine.soundId[3], 0.5f, 0.5f, 1, 0, 1);
+			else
+				Engine.sounds.play(Engine.soundId[1], 0.5f, 0.5f, 1, 0, 1);
+		} else if (addHp > 0){
+			Engine.sounds.play(Engine.soundId[0], 0.5f, 0.5f, 1, 0, 1);
+		}
 
 	}
 
@@ -225,6 +233,7 @@ public class Player implements Stats {
 		
 	}
 	public void giveExp( int addexper) {
+	//	Engine.sounds.play(Engine.soundId[0], 0.5f, 0.5f, 1, 0, 1);
 		Exp = Exp + addexper;
 		if (Exp >= 100){
 			level++;
