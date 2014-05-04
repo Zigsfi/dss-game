@@ -13,11 +13,11 @@ public class Ghost extends Enemy{
 	@Override
 	public void init(Engine e) {
 		this.engine = e;
-		Hp = 20;
+		Hp = 30;
 		Mp = 10;
 		Str = 10;
 		Def = 3;
-		Dex = 10;
+		Dex = 7;
 		IQ = 10;
 		exper = 10;
 		
