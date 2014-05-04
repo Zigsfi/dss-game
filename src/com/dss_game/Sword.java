@@ -99,7 +99,7 @@ public class Sword implements Weapon {
 				Engine.message = "You missed";
 			} else{
 			engine.monster.take_dmg(damage);
-			Engine.message = "Slash did " + -(damage + ((Stats)(engine.monster)).getDef()) + " damage.";
+			Engine.message = "Slash did " + (damage + ((Stats)(engine.monster)).getDef()) + " damage.";
 			
 			}
 			return 100;

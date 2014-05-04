@@ -103,7 +103,7 @@ public class Shield implements Weapon {
 				Engine.message = "You missed";
 			} else{
 			engine.monster.take_dmg( (-1 * bash_damage));
-			Engine.message = "Bash did " + -(bash_damage + ((Stats)(engine.monster)).getDef()) + " damage.";
+			Engine.message = "Bash did " + (bash_damage + ((Stats)(engine.monster)).getDef()) + " damage.";
 			}
 			return 200;
 		}}
