@@ -96,8 +96,15 @@ public class Shield implements Weapon {
 		@Override
 		public int execute() {
 			// TODO select an enemy from monster array in engine
+			int pdex = Engine.player.getDex();
+			int mdex = ((int)(Math.random() * pdex)) + engine.monster.getDex();
+			
+			if (pdex - mdex <= 0) {
+				Engine.message = "You missed";
+			} else{
 			engine.monster.take_dmg( (-1 * bash_damage));
 			Engine.message = "Bash did " + -(bash_damage + ((Stats)(engine.monster)).getDef()) + " damage.";
+			}
 			return 200;
 		}}
 

@@ -26,31 +26,34 @@ public class Ghost extends Enemy{
 		normImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.ghost, options),(int)( 480 * Engine.scaleX), (int)(720 * Engine.scaleY), false);
 		hitImage = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.monster_hit),(int)( 240 * Engine.scaleX), (int)(320 * Engine.scaleY), false);
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.ghost),(int)( 600 * Engine.scaleX), (int)(840 * Engine.scaleY), false);
 		missImage = Bitmap.createScaledBitmap(
 				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.ghost, options),(int)( 210 * Engine.scaleX), (int)(330 * Engine.scaleY), false);
 		image = normImage;
 	}
 	
+	@Override
 	public void hardHit() {
-		int damage = Str - Engine.player.getDef() + ((int)(Str/2));
-		if(damage <= 0) {
-			damage = 1;
-		}
+		int fadeDex = (int) Engine.player.getDex() / 2;
+		
 		//attack the player
-		Engine.player.changeHp(-1 * damage);
-		Engine.message = "Enemey hits hard for " + damage;
-		image = hitImage;
+		changeDex(fadeDex);
+		Engine.message = "Ghost fades: harder to hit ";
+		image = Bitmap.createScaledBitmap(
+				BitmapFactory.decodeResource(this.engine.getResources(), R.drawable.ghost),(int)( 480 * Engine.scaleX), (int)(720 * Engine.scaleY), false);;
 		Timer def_T = new Timer();
 		def_T.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				image = normImage;
-				Engine.message = "";
+				int web = (int) Engine.player.getDex() * 2;
+				Engine.player.changeDex(web);
+				Engine.message = "Cleared the web: Dex up " + web;
 				return;
 			}
-		}, 750);
-		sAttack = 700;
+		}, 4000);
+		sAttack = 2000 - (int)(Math.random() * 1000);
 	}
+
 
 }
