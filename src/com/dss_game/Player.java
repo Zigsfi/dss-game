@@ -55,7 +55,7 @@ public class Player implements Stats {
 		mainMenu.addOption("Change Armor", new SwitchArmorInventory());
 		mainMenu.addOption("Character Stats", new CharStats());
 		menu = mainMenu;
-		menuHeight = 300;
+		menuHeight = 500;
 
 	}
 
@@ -305,7 +305,7 @@ public class Player implements Stats {
 		
 		public int execute() {
 			menu = themenu;
-			menuHeight = 300;
+			menuHeight = 500;
 			return 0;
 		}
 	}
