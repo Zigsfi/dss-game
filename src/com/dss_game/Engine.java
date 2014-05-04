@@ -103,7 +103,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 				while (true) {
 					won = false;
-					boss.stop();
+					
 					music.start();
 
 					Dungeon dungeon = new Dungeon(engine);
@@ -123,7 +123,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 							sleep(5);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							e.printStackTrace(); 
 						}
 					}
 					try {
@@ -136,6 +136,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					mainMenu = new GameMenu();
 
 					message = "New Game";
+					boss.pause();
+
 				}
 			}
 		}.start();
