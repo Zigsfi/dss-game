@@ -13,7 +13,7 @@ public class Spider extends Enemy {
 	@Override
 	public void init(Engine e) {
 		this.engine = e;
-		
+		Hp = 28;
 		exper = 10;
 		
 		Options options = new BitmapFactory.Options();

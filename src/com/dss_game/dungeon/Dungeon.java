@@ -90,6 +90,7 @@ public class Dungeon {
 				mst.add((Edge) array[i]);
 		}
 		*/
+	//	mst.add(new Edge(curRoom, bossRoom));
 		ListIterator<Edge> edgeIt = mst.listIterator();
 		while (edgeIt.hasNext()) {
 			Edge mstEdge = edgeIt.next();
@@ -102,6 +103,7 @@ public class Dungeon {
 		curRoom.menu.addOption("& Arthur Berman", null);
 		curRoom.menu.addOption("Music by Thomas Colgrove", null);
 		bossRoom.monster = new DeadSquirrel();
+		
 	}
 
 	public static double distance(Rect a, Rect b) {
@@ -126,7 +128,7 @@ public class Dungeon {
 					curRoom = r;
 					if (!r.visited) {
 						if (r == bossRoom) {
-							engine.music.stop();
+							engine.music.pause();
 							engine.boss.start();
 						}
 						engine.initFight(r);

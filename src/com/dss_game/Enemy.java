@@ -26,7 +26,7 @@ public class Enemy implements Monster, Stats {
 	public Enemy() {
 		x = 900;
 		y = 500;
-		Hp = 10;
+		Hp = 30;
 		Mp = 10;
 		Str = 20;
 		Def = 3;
@@ -250,7 +250,7 @@ public class Enemy implements Monster, Stats {
 		}
 		//attack the player
 		Engine.player.changeHp(-1 * damage);
-		Engine.message = "Enemey hits hard for " + damage;
+		Engine.message = "Enemy hits hard for " + damage;
 		image = hitImage;
 		Timer def_T = new Timer();
 		def_T.schedule(new TimerTask() {
