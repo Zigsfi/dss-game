@@ -10,4 +10,5 @@ public interface Monster {
 	public void death();
 	public int getExper();
 	public int getDex();
+	public void setDex(int curDex);
 }

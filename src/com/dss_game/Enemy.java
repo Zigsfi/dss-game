@@ -26,7 +26,7 @@ public class Enemy implements Monster, Stats {
 	public Enemy() {
 		x = 900;
 		y = 500;
-		Hp = 10;
+		Hp = 20;
 		Mp = 10;
 		Str = 20;
 		Def = 3;

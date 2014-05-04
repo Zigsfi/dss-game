@@ -47,7 +47,7 @@ public class Ghost extends Enemy{
 				//check dex hit chance
 				int pdex = Engine.player.getDex();
 				int mydex = ((int)(Math.random() * pdex)) + Dex;
-				Dex = 10;
+				Dex = 7;
 				if (pdex - mydex >= 0) {
 					Engine.message = "Enemy missed";
 					image = missImage;
@@ -100,7 +100,7 @@ public class Ghost extends Enemy{
 			@Override
 			public void run() {
 				image = normImage;;
-				Engine.player.setDex(10);
+				engine.monster.setDex(7);
 				Engine.message = "Ghost reappeared.";
 				return;
 			}
