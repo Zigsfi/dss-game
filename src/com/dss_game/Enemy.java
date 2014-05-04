@@ -242,7 +242,7 @@ public class Enemy implements Monster, Stats {
 		//Engine.message = "You got " + exper + " Experiance.";
 		
 		
-		}
+	}
 	public void hardHit() {
 		int damage = Str - Engine.player.getDef() + ((int)(Str/2));
 		if(damage <= 0) {

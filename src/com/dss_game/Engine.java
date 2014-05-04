@@ -53,7 +53,8 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 	public GameMenu mainMenu;
 	public static SoundPool sounds;
 	public static int soundId[];
-	MediaPlayer music;
+	public MediaPlayer music, boss;
+	public boolean won;
 	public static float scaleX() {
 		return scaleX;
 	}
@@ -77,6 +78,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		mainMenu = new GameMenu();
 		soundId = new int[10];
 		music = MediaPlayer.create(context, R.raw.hero2);
+		boss = MediaPlayer.create(context, R.raw.bossdemondemo2);
 		sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 		soundId[0] = sounds.load(context, R.raw.ascending, 1);
 		soundId[1] = sounds.load(context, R.raw.hit, 2);
@@ -98,9 +100,12 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 
 			public void run() {
 				//initFight("");
-				music.start();
 
 				while (true) {
+					won = false;
+					boss.stop();
+					music.start();
+
 					Dungeon dungeon = new Dungeon(engine);
 					startRoom = dungeon.curRoom;
 					if (dungeon.curRoom.x > 1920 * scaleX) {
@@ -111,7 +116,7 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 					}
 		//			sounds.play(soundId[1], 0.99f, 0.99f, 50, -1, 1);
 
-					while (player.getHp() > 0) {
+					while (player.getHp() > 0 && !won) {
 						handleDungeonInput(dungeon);
 						dungeonPaint(dungeon, startRoom);
 						try {
@@ -204,12 +209,17 @@ public class Engine extends SurfaceView implements Callback, OnGestureListener {
 		}
 		fighting = false;
 
-		message = (player.getHp() > 0 ? "Victory with " + monster.getExper() +" experiance" : "Defeat");
+		message = (player.getHp() > 0 ? "Victory with " + monster.getExper() +" experience" : "Defeat");
 		Timer def_T = new Timer();
 		def_T.schedule(new TimerTask() {
+
 			@Override
 			public void run() {
 				player.giveExp(monster.getExper());
+				if (monster.getClass() == DeadSquirrel.class) {
+					message = "Congratulations! You Win!";
+					won = true;
+				}
 				return;
 			}
 		}, 750);
