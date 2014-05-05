@@ -91,15 +91,41 @@ p {
         margin-right: 40%
     }
     
+img {
+        border-style: solid;
+        border-width: 5pt;
+        border-color: Blue;
+        /*margin-right: (width - 200);*/
+}
+    
 p1 {
         font-family: Helvetica;
-        font-size: 18px;
         margin-left: 8%;
     }
 #nav_menu{
         font-size: 20px;
         font-weight:bold;
         color: White;
+}
+
+#RED{
+    color:RED;
+    margin-top: -18px;
+}
+
+#BLUE{
+    color:BLUE;
+    margin-top: -18px;
+}
+
+#GREY{
+    color:GREY;
+    margin-top: -18px;
+}
+
+#PURPLE{
+    color:PURPLE;
+    margin-top: -18px;
 }
 
 
