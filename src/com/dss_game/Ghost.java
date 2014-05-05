@@ -100,7 +100,7 @@ public class Ghost extends Enemy{
 			@Override
 			public void run() {
 				image = normImage;;
-				engine.monster.setDex(7);
+				(engine.monster).setDex(7);
 				Engine.message = "Ghost reappeared.";
 				return;
 			}
